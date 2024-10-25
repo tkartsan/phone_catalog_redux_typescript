@@ -1,0 +1,20 @@
+.navigation-wrapper {
+  display: flex;
+  gap: 20px;
+}
+
+[class^='swiper-prev'],
+[class^='swiper-next'] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border: 2px solid grey;
+  color: #000000;
+}
+
+.swiper-button-disabled {
+  border: 2px solid rgb(185, 185, 185);
+  color: grey;
+}

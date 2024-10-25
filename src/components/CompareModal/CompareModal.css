@@ -1,0 +1,36 @@
+/* Outer modal background transition */
+.modal-background-enter {
+  opacity: 0;
+}
+
+.modal-background-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in-out;
+}
+
+.modal-background-exit {
+  opacity: 1;
+}
+
+.modal-background-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-in-out;
+}
+
+.modal-container-enter {
+  transform: translateY(100%);
+}
+
+.modal-container-enter-active {
+  transform: translateY(0);
+  transition: transform 500ms ease-in-out;
+}
+
+.modal-container-exit {
+  transform: translateY(0);
+}
+
+.modal-container-exit-active {
+  transform: translateY(100%);
+  transition: transform 500ms ease-in-out;
+}

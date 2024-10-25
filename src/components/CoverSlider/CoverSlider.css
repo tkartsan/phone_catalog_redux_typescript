@@ -1,0 +1,14 @@
+.swiper-prev-cover,
+.swiper-next-cover {
+  border: 2px solid grey;
+  color: #000000;
+}
+
+.swiper-button-disabled {
+  border: 2px solid rgb(185, 185, 185);
+  color: grey;
+}
+
+.swiper-pagination {
+  bottom: -30px !important ;
+}

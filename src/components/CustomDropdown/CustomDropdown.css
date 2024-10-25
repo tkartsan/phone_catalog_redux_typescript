@@ -1,0 +1,51 @@
+.custom-dropdown {
+  position: relative;
+}
+
+.dropdown-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropdown-menu {
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.dropdown-option {
+  white-space: nowrap;
+  padding: 8px;
+}
+
+.dropdown-option:hover {
+  background-color: #f0f0f0;
+}
+
+.arrow-icon {
+  transition: transform 0.3s;
+}
+
+.rotate-open {
+  transform: rotate(90deg);
+}
+
+.rotate-close {
+  transform: rotate(-90deg);
+}
+
+.standart-width {
+  width: 176px;
+}
+.narrow-width {
+  width: 128px;
+}

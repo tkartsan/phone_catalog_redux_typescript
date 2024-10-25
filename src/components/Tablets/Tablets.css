@@ -1,0 +1,22 @@
+.container {
+  max-width: 1136px;
+  margin: 0 auto;
+}
+
+.title {
+  font-weight: 800;
+  font-size: 2rem;
+  margin-bottom: 16px;
+}
+
+.subtitle {
+  color: #6b7280;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.tablet-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
