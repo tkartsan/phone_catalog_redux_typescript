@@ -1,19 +1,25 @@
 import './DeviceSlider.css';
 
 import React from 'react';
-// eslint-disable-next-line import/no-unresolved
 import { Navigation } from 'swiper/modules';
-// eslint-disable-next-line import/no-unresolved
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { ArrowLeftIcon, ArrowRightIcon } from '../../assets';
 import { DeviceCard } from '../Shared/DeviceCard';
 
-export const DeviceSlider = ({
+interface DeviceSliderProps {
+  items: { id: number }[]; // Define the exact type based on your `DeviceCard` component's `item` prop
+  title: string;
+  itemType: string;
+  isShowDiscount?: boolean;
+  sliderId?: string;
+}
+
+export const DeviceSlider: React.FC<DeviceSliderProps> = ({
   items,
   title,
   itemType,
-  isShowDiscount,
+  isShowDiscount = false,
   sliderId = '',
 }) => {
   const prevButtonClass = `swiper-prev-${sliderId}`;

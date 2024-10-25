@@ -9,36 +9,37 @@ import {
 } from '../store/itemsDataSlice';
 
 import { useFetch } from './useFetch';
+import { AppDispatch } from '../store/store';
 
 export const useDataFetch = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
-  const { data: phonesData } = useFetch('/api/phones.json');
-  const { data: tabletsData } = useFetch('/api/tablets.json');
-  const { data: accessoriesData } = useFetch('/api/accessories.json');
-  const { data: productsData } = useFetch('/api/products.json');
+  const { data: phonesData } = useFetch<any[]>('/api/phones.json');
+  const { data: tabletsData } = useFetch<any[]>('/api/tablets.json');
+  const { data: accessoriesData } = useFetch<any[]>('/api/accessories.json');
+  const { data: productsData } = useFetch<any[]>('/api/products.json');
 
   useEffect(() => {
     if (phonesData) {
       dispatch(setPhonesData(phonesData));
     }
-  }, [phonesData]);
+  }, [phonesData, dispatch]);
 
   useEffect(() => {
     if (tabletsData) {
       dispatch(setTabletsData(tabletsData));
     }
-  }, [tabletsData]);
+  }, [tabletsData, dispatch]);
 
   useEffect(() => {
     if (accessoriesData) {
       dispatch(setAccessoriesData(accessoriesData));
     }
-  }, [accessoriesData]);
+  }, [accessoriesData, dispatch]);
 
   useEffect(() => {
     if (productsData) {
       dispatch(setProductsData(productsData));
     }
-  }, [productsData]);
+  }, [productsData, dispatch]);
 };

@@ -1,4 +1,4 @@
-export const devicesColorNamesMap = {
+export const devicesColorNamesMap: Record<string, string> = {
   black: '#000000',
   white: '#FFFFFF',
   red: '#FF0000',

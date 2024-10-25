@@ -1,13 +1,29 @@
 import React from 'react';
 
-export const RenderSpecs = ({ item, itemType }) => {
+interface Item {
+  screen?: string;
+  resolution?: string;
+  processor?: string;
+  ram?: string;
+  capacity?: string;
+  camera?: string;
+  zoom?: string;
+  cell?: string[];
+}
+
+interface RenderSpecsProps {
+  item: Item;
+  itemType: 'phone' | 'tablet' | 'accessory';
+}
+
+export const RenderSpecs: React.FC<RenderSpecsProps> = ({ item, itemType }) => {
   const specs = {
     phone: [
       { label: 'Screen', value: item.screen },
       { label: 'Resolution', value: item.resolution },
       { label: 'Processor', value: item.processor },
       { label: 'RAM', value: item.ram },
-      { label: 'Built in memory', value: item.capacity },
+      { label: 'Built-in memory', value: item.capacity },
       { label: 'Camera', value: item.camera },
       { label: 'Zoom', value: item.zoom },
       { label: 'Cell', value: item.cell?.join(', ') },
@@ -43,7 +59,7 @@ export const RenderSpecs = ({ item, itemType }) => {
                 <span className="text-gray-600">{spec.label}</span>
                 <span className="text-black">{spec.value}</span>
               </div>
-            ),
+            )
         )}
       </div>
     </div>

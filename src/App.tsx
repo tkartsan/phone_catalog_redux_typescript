@@ -17,15 +17,17 @@ import { TabletDetails } from './components/TabletDetails';
 import { Tablets } from './components/Tablets';
 import { useDataFetch } from './hooks/useDataFetch';
 import { getItemsWithNumericId } from './utils/getItemsWithNumericId';
+import { RootState } from './store'; // Assuming you have a RootState type in your store
 
-function App() {
+const App: React.FC = () => {
   useDataFetch();
+  
   const {
     phonesData = [],
     tabletsData = [],
     accessoriesData = [],
     productsData = [],
-  } = useSelector((state) => state.itemsData || {});
+  } = useSelector((state: RootState) => state.itemsData || {});
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -88,6 +90,6 @@ function App() {
       <Footer />
     </div>
   );
-}
+};
 
 export default App;

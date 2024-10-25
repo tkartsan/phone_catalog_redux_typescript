@@ -1,6 +1,19 @@
 import React from 'react';
 
-export const DescriptionPanel = ({ title = 'About', description }) => {
+interface DescriptionSection {
+  title: string;
+  text: string[];
+}
+
+interface DescriptionPanelProps {
+  description: DescriptionSection[];
+  title?: string;
+}
+
+export const DescriptionPanel = ({
+  title = 'About',
+  description,
+}: DescriptionPanelProps) => {
   if (!description) return null;
 
   return (

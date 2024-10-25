@@ -5,8 +5,34 @@ import { devicesColorNamesMap } from '../../global/constants';
 import { addToCart, removeFromCart } from '../../store/cartSlice';
 import { addDeviceToCompare } from '../../store/compareSlice';
 import { CompareModal } from '../CompareModal';
+import { RootState } from '../../store/store';
 
-export const PurchasePanel = ({
+interface Item {
+  id: number;
+  name: string;
+  numericId: string;
+  priceDiscount: number;
+  priceRegular: number;
+  price: number;
+  screen?: string;
+  resolution?: string;
+  processor?: string;
+  ram?: string;
+  cell?: string[];
+  colorsAvailable: string[];
+  capacityAvailable: string[];
+}
+
+interface PurchasePanelProps {
+  item: Item;
+  itemType: DeviceType;
+  selectedColor: string;
+  handleColorChange: (color: string) => void;
+  selectedCapacity: string;
+  handleCapacityChange: (capacity: string) => void;
+}
+
+export const PurchasePanel: React.FC<PurchasePanelProps> = ({
   item,
   itemType,
   selectedColor,
@@ -15,8 +41,8 @@ export const PurchasePanel = ({
   handleCapacityChange,
 }) => {
   const dispatch = useDispatch();
-  const { comparedDevices } = useSelector((state) => state.compare);
-  const { cart } = useSelector((state) => state.cart);
+  const { comparedDevices } = useSelector((state: RootState) => state.compare);
+  const { cart } = useSelector((state: RootState) => state.cart);
   const isInCartState = cart.some((cartItem) => cartItem.id === item.id);
   const [isCompareModalOpen, setCompareModalOpen] = useState(false);
 

@@ -5,15 +5,37 @@ import { Link } from 'react-router-dom';
 import { HeartIcon, RedHeartIcon } from '../../assets';
 import { addToCart, removeFromCart } from '../../store/cartSlice';
 import { addFavorite, removeFavorite } from '../../store/favoritesSlice';
+import { RootState } from '../../store/store';
 
-export const DeviceCard = ({ item, itemType, isShowDiscount }) => {
+interface Item {
+  id: number;
+  name: string;
+  priceRegular: number;
+  priceDiscount: number;
+  screen: string;
+  capacity: string;
+  ram: string;
+  images: string[];
+}
+
+interface DeviceCardProps {
+  item: Item;
+  itemType: string;
+  isShowDiscount?: boolean;
+}
+
+export const DeviceCard: React.FC<DeviceCardProps> = ({
+  item,
+  itemType,
+  isShowDiscount = false,
+}) => {
   const dispatch = useDispatch();
-  const { cart } = useSelector((state) => state.cart);
-  const { favorites } = useSelector((state) => state.favorites);
+  const { cart } = useSelector((state: RootState) => state.cart);
+  const { favorites } = useSelector((state: RootState) => state.favorites);
 
   const isInCart = cart.some((cartItem) => cartItem.id === item.id);
   const isFavorite = favorites.some(
-    (favoriteItem) => favoriteItem.id === item.id,
+    (favoriteItem) => favoriteItem.id === item.id
   );
 
   const handleToggleFavorite = () => {

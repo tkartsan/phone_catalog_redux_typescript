@@ -1,6 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState = {
+interface Device {
+  id: number;
+  name: string;
+  // Add other properties as needed
+}
+
+type DeviceType = 'phone' | 'tablet' | 'accessory' | null; // Define device types or adjust as needed
+
+interface CompareState {
+  comparedDevices: Device[];
+  deviceType: DeviceType;
+}
+
+const initialState: CompareState = {
   comparedDevices: [],
   deviceType: null,
 };
@@ -9,12 +22,14 @@ const compareSlice = createSlice({
   name: 'compare',
   initialState,
   reducers: {
-    addDeviceToCompare: (state, action) => {
+    addDeviceToCompare: (
+      state,
+      action: PayloadAction<{ device: Device; deviceType: DeviceType }>
+    ) => {
       const { device, deviceType } = action.payload;
 
       if (state.comparedDevices.length >= 2) {
         console.error('You cannot compare more than two devices');
-
         return;
       }
 
@@ -26,12 +41,12 @@ const compareSlice = createSlice({
       }
     },
 
-    removeDeviceFromCompare: (state, action) => {
+    removeDeviceFromCompare: (state, action: PayloadAction<number>) => {
       const deviceId = action.payload;
-
       state.comparedDevices = state.comparedDevices.filter(
-        (device) => device.id !== deviceId,
+        (device) => device.id !== deviceId
       );
+
       if (state.comparedDevices.length === 0) {
         state.deviceType = null;
       }
@@ -49,5 +64,7 @@ export const {
   removeDeviceFromCompare,
   clearComparedDevices,
 } = compareSlice.actions;
+
+export type DeviceType = 'phone' | 'tablet' | 'accessory' | null;
 
 export default compareSlice.reducer;
