@@ -1,12 +1,10 @@
 interface Product {
   name: string;
   year: number;
-  // Add other properties if necessary
 }
 
 interface Phone {
   name: string;
-  // Add other properties if necessary
 }
 
 interface PhoneWithYear extends Phone {

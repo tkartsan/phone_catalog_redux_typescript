@@ -1,25 +1,14 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-
 import { HeartIcon, RedHeartIcon } from '../../assets';
 import { addToCart, removeFromCart } from '../../store/cartSlice';
 import { addFavorite, removeFavorite } from '../../store/favoritesSlice';
 import { RootState } from '../../store/store';
-
-interface Item {
-  id: number;
-  name: string;
-  priceRegular: number;
-  priceDiscount: number;
-  screen: string;
-  capacity: string;
-  ram: string;
-  images: string[];
-}
+import { Product } from 'types/global';
 
 interface DeviceCardProps {
-  item: Item;
+  item: Product;
   itemType: string;
   isShowDiscount?: boolean;
 }
@@ -34,9 +23,7 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
   const { favorites } = useSelector((state: RootState) => state.favorites);
 
   const isInCart = cart.some((cartItem) => cartItem.id === item.id);
-  const isFavorite = favorites.some(
-    (favoriteItem) => favoriteItem.id === item.id
-  );
+  const isFavorite = favorites.some((favoriteItem) => favoriteItem.id === item.id);
 
   const handleToggleFavorite = () => {
     if (isFavorite) {
@@ -54,13 +41,21 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
     }
   };
 
+  const priceToShow = isShowDiscount
+    ? item.priceDiscount 
+    : item.priceRegular;
+
+  const imageToShow = item.images ? item.images[0] : null;
+
+  console.log({item});
+
   return (
     <Link to={`/${itemType}/${item.id}`} className="no-underline">
       <div className="bg-white border-solid border-colorLightGrey p-4 flex flex-col max-w-[272px] hover:shadow-lg transition-shadow duration-200">
         <div>
           <div className="flex justify-center mb-4">
             <img
-              src={`/${item.images[0]}`}
+              src={`/${imageToShow}`}
               alt={item.name}
               className="w-[150px] h-[200px] object-contain transform transition-transform duration-300 hover:scale-110"
             />
@@ -70,16 +65,12 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
           </h3>
           <div className="mt-2 flex items-center gap-2">
             <p className="font-bold text-xl text-black">
-              ${isShowDiscount ? item.priceDiscount : item.priceRegular}
+              ${priceToShow}
             </p>
-            {isShowDiscount && (
+            {isShowDiscount && item.priceDiscount && (
               <p className="text-gray-500 line-through">${item.priceRegular}</p>
             )}
           </div>
-          <div className="flex items-center my-2">
-            <div className="flex-grow bg-gray-300 h-[1px]"></div>
-          </div>
-
           <div className="flex flex-col gap-2 text-12 font-semibold mb-3">
             <div className="flex justify-between">
               <span className="text-gray-500">Screen</span>

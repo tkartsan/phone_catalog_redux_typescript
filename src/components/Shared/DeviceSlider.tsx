@@ -1,14 +1,13 @@
 import './DeviceSlider.css';
-
 import React from 'react';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
 import { ArrowLeftIcon, ArrowRightIcon } from '../../assets';
 import { DeviceCard } from '../Shared/DeviceCard';
+import { Products } from 'types/global';
 
 interface DeviceSliderProps {
-  items: { id: number }[]; // Define the exact type based on your `DeviceCard` component's `item` prop
+  items: Products;
   title: string;
   itemType: string;
   isShowDiscount?: boolean;

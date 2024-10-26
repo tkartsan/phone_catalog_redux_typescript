@@ -3,10 +3,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 interface Device {
   id: number;
   name: string;
-  // Add other properties as needed
 }
 
-type DeviceType = 'phone' | 'tablet' | 'accessory' | null; // Define device types or adjust as needed
+export type DeviceType = 'phone' | 'tablet' | 'accessory' | null; 
 
 interface CompareState {
   comparedDevices: Device[];
@@ -65,6 +64,5 @@ export const {
   clearComparedDevices,
 } = compareSlice.actions;
 
-export type DeviceType = 'phone' | 'tablet' | 'accessory' | null;
 
 export default compareSlice.reducer;

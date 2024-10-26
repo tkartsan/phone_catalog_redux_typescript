@@ -3,28 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { devicesColorNamesMap } from '../../global/constants';
 import { addToCart, removeFromCart } from '../../store/cartSlice';
-import { addDeviceToCompare } from '../../store/compareSlice';
+import { addDeviceToCompare, DeviceType } from '../../store/compareSlice';
 import { CompareModal } from '../CompareModal';
 import { RootState } from '../../store/store';
-
-interface Item {
-  id: number;
-  name: string;
-  numericId: string;
-  priceDiscount: number;
-  priceRegular: number;
-  price: number;
-  screen?: string;
-  resolution?: string;
-  processor?: string;
-  ram?: string;
-  cell?: string[];
-  colorsAvailable: string[];
-  capacityAvailable: string[];
-}
+import { Product, ProductItem } from 'types/global';
 
 interface PurchasePanelProps {
-  item: Item;
+  item: Product;
   itemType: DeviceType;
   selectedColor: string;
   handleColorChange: (color: string) => void;

@@ -1,15 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Product, Products } from 'types/global';
 
-// Define types for the cart item and state
-interface CartItem {
-  id: number;
-  name: string;
-  price: number;
+interface CartItem extends Product {
   quantity: number;
 }
 
+type CartItems = CartItem[];
+
 interface CartState {
-  cart: CartItem[];
+  cart: CartItems;
 }
 
 const initialState: CartState = {
@@ -20,7 +19,7 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addToCart: (state, action: PayloadAction<Omit<CartItem, 'quantity'>>) => {
+    addToCart: (state, action: PayloadAction<Product>) => {
       const phone = action.payload;
       const existsInCart = state.cart.some((item) => item.id === phone.id);
 

@@ -17,7 +17,7 @@ import { TabletDetails } from './components/TabletDetails';
 import { Tablets } from './components/Tablets';
 import { useDataFetch } from './hooks/useDataFetch';
 import { getItemsWithNumericId } from './utils/getItemsWithNumericId';
-import { RootState } from './store'; // Assuming you have a RootState type in your store
+import { RootState } from './store'; 
 
 const App: React.FC = () => {
   useDataFetch();

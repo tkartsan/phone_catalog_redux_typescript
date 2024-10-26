@@ -1,33 +1,22 @@
-interface Product {
-  id: number;
-  itemId: string;
-  // Add other properties if necessary
-}
-
-interface Item {
-  id: string;
-  // Add other properties if necessary
-}
-
-interface ItemWithNumericId extends Item {
-  numericId: number | string;
-}
+import { ProductItems, Products } from "types/global";
 
 export const getItemsWithNumericId = (
-  items: Item[] = [],
-  products: Product[] = []
-): ItemWithNumericId[] => {
+  items: ProductItems = [],
+  products: Products = []
+): Products => {
   if (!items || !products) {
     return [];
   }
 
-  const productIdMap = products.reduce<Record<string, number>>((map, product) => {
-    map[product.itemId] = product.id;
+  const productIdMap = items.reduce<Record<string, number>>((map, product) => {
+    if ('itemId' in product) { 
+      map[product.itemId] = product.id;
+    }
     return map;
   }, {});
 
   return items.map((item) => {
-    const numericId = productIdMap[item.id] || 'Unknown';
+    const numericId = productIdMap[item.itemId] || 0;   
     return { ...item, numericId };
   });
 };

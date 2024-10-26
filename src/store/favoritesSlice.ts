@@ -1,13 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface Phone {
-  id: number;
-  name: string;
-  price: number;
-}
+import { Product, Products } from 'types/global';
 
 interface FavoritesState {
-  favorites: Phone[];
+  favorites: Products;
 }
 
 const initialState: FavoritesState = {
@@ -18,15 +13,13 @@ const favoritesSlice = createSlice({
   name: 'favorites',
   initialState,
   reducers: {
-    // Action for adding a favorite, with a typed payload (Phone)
-    addFavorite: (state, action: PayloadAction<Phone>) => {
+    addFavorite: (state, action: PayloadAction<Product>) => {
       const phone = action.payload;
       state.favorites.push(phone);
     },
-    // Action for removing a favorite by its ID (number)
     removeFavorite: (state, action: PayloadAction<number>) => {
-      const phoneId = action.payload;
-      state.favorites = state.favorites.filter((phone) => phone.id !== phoneId);
+      const productId = action.payload;
+      state.favorites = state.favorites.filter((product) => product.id !== productId);
     },
   },
 });
