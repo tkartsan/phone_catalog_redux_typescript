@@ -1,11 +1,24 @@
 import './CustomDropdown.css';
 
 import React, { useRef, useState } from 'react';
-
 import { ArrowLeftIcon } from '../../assets';
 import { useClickOutside } from '../../hooks/useClickOutside';
 
-export const CustomDropdown = ({
+interface Option {
+  value: string | number;
+  label: string;
+}
+
+interface CustomDropdownProps {
+  options: Option[];
+  selectedOption: Option | null;
+  setSelectedOption: (option: Option) => void;
+  label: string;
+  isNarrowWidth: boolean;
+  heightClass: string;
+}
+
+export const CustomDropdown: React.FC<CustomDropdownProps> = ({
   options,
   selectedOption,
   setSelectedOption,
@@ -14,7 +27,7 @@ export const CustomDropdown = ({
   heightClass,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const closeDropdown = () => setIsOpen(false);
 
@@ -24,12 +37,12 @@ export const CustomDropdown = ({
     setIsOpen((prevIsOpen) => !prevIsOpen);
   };
 
-  const handleOptionClick = (option) => {
+  const handleOptionClick = (option: Option) => {
     setSelectedOption(option);
     closeDropdown();
   };
 
-  const truncateLabel = (label) => {
+  const truncateLabel = (label: string) => {
     return label.length > 13 ? `${label.slice(0, 13)}...` : label;
   };
 
@@ -44,13 +57,9 @@ export const CustomDropdown = ({
         onClick={toggleDropdown}
       >
         <span className="truncate w-full">
-          {truncateLabel(
-            selectedOption ? selectedOption.label : 'Default sorting',
-          )}
+          {truncateLabel(selectedOption ? selectedOption.label : 'Default sorting')}
         </span>
-        <span
-          className={`arrow-icon ${isOpen ? 'rotate-open' : 'rotate-close'}`}
-        >
+        <span className={`arrow-icon ${isOpen ? 'rotate-open' : 'rotate-close'}`}>
           <ArrowLeftIcon />
         </span>
       </div>

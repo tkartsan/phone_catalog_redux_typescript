@@ -24,6 +24,8 @@ export const DeviceSlider: React.FC<DeviceSliderProps> = ({
   const prevButtonClass = `swiper-prev-${sliderId}`;
   const nextButtonClass = `swiper-next-${sliderId}`;
 
+  console.log({items});
+
   return (
     <div className="mx-auto max-w-[1136px]">
       <div className="flex justify-between">

@@ -2,27 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { ArrowLeftIcon } from '../../assets';
+import { Breadcrumb } from '../Breadcrumb';
 import { DescriptionPanel } from '../Shared/DescriptionPanel';
 import { DeviceSlider } from '../Shared/DeviceSlider';
 import { PurchasePanel } from '../Shared/PurchasePanel';
 import { RenderSpecs } from '../Shared/RenderSpecs';
-
-import { Breadcrumb } from '../Breadcrumb';
-import { Products } from 'types/global';
-
-
-interface AccessoryDetailsProps {
-  accessories: Products;
-  
-}
-
-export const AccessoryDetails: React.FC<AccessoryDetailsProps> = ({ accessories }) => {
+export const AccessoryDetails = ({ accessories }) => {
   const navigate = useNavigate();
-  const { id } = useParams<{ id: string }>();
-  const accessory = id && accessories?.find((a) => (a.id).toString() === id);
-  const [selectedColor, setSelectedColor] = useState<string | undefined>();
-  const [selectedCapacity, setSelectedCapacity] = useState<string | undefined>();
-  const [selectedImage, setSelectedImage] = useState<string | undefined>();
+  const { id } = useParams();
+  const accessory =
+    id &&
+    (accessories === null || accessories === void 0
+      ? void 0
+      : accessories.find((a) => a.id === parseInt(id)));
+  const [selectedColor, setSelectedColor] = useState();
+  const [selectedCapacity, setSelectedCapacity] = useState();
+  const [selectedImage, setSelectedImage] = useState();
+
+  console.log('jsx', { id, accessories });
 
   useEffect(() => {
     if (accessory) {
@@ -31,7 +28,6 @@ export const AccessoryDetails: React.FC<AccessoryDetailsProps> = ({ accessories 
       setSelectedImage(accessory.images[0]);
     }
   }, [accessory]);
-
   if (!accessories.length) {
     return null;
   }
@@ -43,36 +39,41 @@ export const AccessoryDetails: React.FC<AccessoryDetailsProps> = ({ accessories 
   const handleBackClick = () => {
     navigate(-1);
   };
-
-  const handleColorChange = (color: string) => {
+  const handleColorChange = (color) => {
+    var _a;
     setSelectedColor(color);
-    const newAccessoryId = accessories.find(
-      (a) =>
-        a.namespaceId === accessory.namespaceId &&
-        a.color === color &&
-        a.capacity === selectedCapacity,
-    )?.id;
+    const newAccessoryId =
+      (_a = accessories.find(
+        (a) =>
+          a.namespaceId === accessory.namespaceId &&
+          a.color === color &&
+          a.capacity === selectedCapacity,
+      )) === null || _a === void 0
+        ? void 0
+        : _a.id;
 
     if (newAccessoryId) {
       navigate(`/accessories/${newAccessoryId}`);
     }
   };
-
-  const handleCapacityChange = (capacity: string) => {
+  const handleCapacityChange = (capacity) => {
+    var _a;
     setSelectedCapacity(capacity);
-    const newAccessoryId = accessories.find(
-      (a) =>
-        a.namespaceId === accessory.namespaceId &&
-        a.color === selectedColor &&
-        a.capacity === capacity,
-    )?.id;
+    const newAccessoryId =
+      (_a = accessories.find(
+        (a) =>
+          a.namespaceId === accessory.namespaceId &&
+          a.color === selectedColor &&
+          a.capacity === capacity,
+      )) === null || _a === void 0
+        ? void 0
+        : _a.id;
 
     if (newAccessoryId) {
       navigate(`/accessories/${newAccessoryId}`);
     }
   };
-
-  const handleImageClick = (image: string) => {
+  const handleImageClick = (image) => {
     setSelectedImage(image);
   };
 

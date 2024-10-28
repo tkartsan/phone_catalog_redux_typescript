@@ -1,24 +1,24 @@
 import React from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
-
+import { useSelector } from 'react-redux';
 import { ArrowRightIcon, HomeIcon } from '../../assets';
-import { useFetch } from '../../hooks/useFetch';
+import { RootState } from '../../store/store'; // Adjust path if needed
 
-export const Breadcrumb = () => {
-  const { id } = useParams();
+export const Breadcrumb: React.FC = () => {
+  const { id } = useParams<{ id?: string }>();
   const location = useLocation();
-  const { data: productsData } = useFetch('/api/products.json');
+
+  const productsData = useSelector((state: RootState) => state.itemsData.productsData);
+
   const pathParts = location.pathname.split('/').filter((part) => part);
 
   const categoryName = pathParts[0]
     ? pathParts[0].charAt(0).toUpperCase() + pathParts[0].slice(1)
     : 'Home';
 
-  const currentDevice =
-    id &&
-    productsData?.find((product) => {
-      return product.itemId == id;
-    });
+  const currentDevice = id
+    ? productsData?.find((product) => product.itemId === id)
+    : null;
 
   const breadCrumbDeviceName = currentDevice?.name;
 

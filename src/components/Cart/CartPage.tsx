@@ -1,23 +1,20 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+import { clearCart, removeFromCart, updateCartQuantity } from '../../store/cartSlice';
 
-import {
-  clearCart,
-  removeFromCart,
-  updateCartQuantity,
-} from '../../store/cartSlice';
-
-export const CartPage = () => {
+export const CartPage: React.FC = () => {
   const dispatch = useDispatch();
-  const { cart } = useSelector((state) => state.cart);
+  const { cart } = useSelector((state: RootState) => state.cart);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // Calculate total price
   const totalPrice = cart.reduce(
     (acc, purchase) =>
       acc +
       (purchase.priceDiscount || purchase.priceRegular) *
         (purchase.quantity || 1),
-    0,
+    0
   );
 
   const handleCheckoutClick = () => {
@@ -73,9 +70,9 @@ export const CartPage = () => {
                             phoneId: purchase.id,
                             newQuantity: Math.max(
                               (purchase.quantity || 1) - 1,
-                              1,
+                              1
                             ),
-                          }),
+                          })
                         )
                       }
                     >
@@ -89,7 +86,7 @@ export const CartPage = () => {
                           updateCartQuantity({
                             phoneId: purchase.id,
                             newQuantity: (purchase.quantity || 1) + 1,
-                          }),
+                          })
                         )
                       }
                     >
@@ -97,7 +94,7 @@ export const CartPage = () => {
                     </button>
                   </div>
                   <p className="text-xl font-bold whitespace-nowrap">
-                    ${purchase.priceDiscount}
+                    ${purchase.priceDiscount || purchase.priceRegular}
                   </p>
                 </div>
               </div>
@@ -110,8 +107,7 @@ export const CartPage = () => {
                   ${totalPrice}
                 </div>
                 <div className="flex justify-center text-[14px] font-medium text-colorDifferentGrey">
-                  Total for {cart.length}
-                  {cart.length > 1 ? ' items' : ' item'}
+                  Total for {cart.length} {cart.length > 1 ? 'items' : 'item'}
                 </div>
               </div>
               <div className="w-full h-[1px] bg-colorDifferentGrey"></div>

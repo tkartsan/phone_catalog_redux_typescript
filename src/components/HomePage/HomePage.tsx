@@ -1,18 +1,24 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
-import { CategoriesPick } from '../CategoriesPick';
-import { CoverSlider } from '../CoverSlider';
 import { DeviceSlider } from '../Shared/DeviceSlider';
 
-import { getMostRecentPhones } from './../../utils/getMostRecentPhones';
-import { getTopDiscountedPhones } from './../../utils/getTopDiscountedPhones';
+import { getMostRecentPhones } from '../../utils/getMostRecentPhones';
+import { getTopDiscountedPhones } from '../../utils/getTopDiscountedPhones';
+import { RootState } from '../../store/store';
 
-export const HomePage = ({
-  phonesData,
-  productsData,
-  tabletsData,
-  accessoriesData,
-}) => {
+import { CategoriesPick } from './../CategoriesPick/CategoriesPick';
+import { CoverSlider } from './../CoverSlider/CoverSlider';
+
+export const HomePage: React.FC = () => {
+  const data = useSelector(
+    (state: RootState) => state.itemsData
+  );
+ 
+  const { productsData, tabletsData, accessoriesData, phonesData } = data || {};
+
+  console.log({ phonesData, productsData, data });
+
   return (
     <>
       <CoverSlider />

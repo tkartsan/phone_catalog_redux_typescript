@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+import { Product } from 'types/global';
 
-export const ComparisonPage = () => {
-  const { comparedDevices } = useSelector((state) => state.compare);
+export const ComparisonPage: React.FC = () => {
+  const { comparedDevices } = useSelector((state: RootState) => state.compare);
   const [hideIdenticalLines, setHideIdenticalLines] = useState(false);
 
   if (comparedDevices.length === 0) {
@@ -16,9 +18,9 @@ export const ComparisonPage = () => {
     { label: 'RAM', key: 'ram' },
     { label: 'Cell', key: 'cell' },
     { label: 'Price', key: 'priceDiscount' },
-  ];
+  ] as const;
 
-  const areValuesIdentical = (key) => {
+  const areValuesIdentical = (key: keyof Product) => {
     const firstValue = comparedDevices[0][key];
 
     return comparedDevices.every((device) => {
@@ -26,7 +28,7 @@ export const ComparisonPage = () => {
         return (
           Array.isArray(device[key]) &&
           firstValue.length === device[key].length &&
-          firstValue.every((val, index) => val === device[key][index])
+          firstValue.every((val, index) => val === (device[key] as string[])[index])
         );
       }
 
@@ -92,7 +94,7 @@ export const ComparisonPage = () => {
                   }`}
                 >
                   {Array.isArray(device[spec.key])
-                    ? device[spec.key].join(', ')
+                    ? (device[spec.key] as string[]).join(', ')
                     : device[spec.key]}
                 </div>
               ))}

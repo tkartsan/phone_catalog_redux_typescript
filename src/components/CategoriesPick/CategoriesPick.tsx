@@ -1,18 +1,30 @@
 import './CategoriesPick.css';
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-
 import accessoriescover from './../../assets/accessoriescover.png';
 import phonecover from './../../assets/phonescover.png';
 import tabletcover from './../../assets/tabletscover.png';
 
-export const CategoriesPick = ({ phones, tablets, accessories }) => {
-  const [categories, setCategories] = useState([]);
+interface CategoriesPickProps {
+  phones: any[]; // Replace `any` with an appropriate type if available
+  tablets: any[];
+  accessories: any[];
+}
+
+interface Category {
+  title: string;
+  image: string;
+  models: string;
+  className: string;
+  link: string;
+}
+
+export const CategoriesPick: React.FC<CategoriesPickProps> = ({ phones, tablets, accessories }) => {
+  const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
     if (phones && tablets && accessories) {
-      const categoriesData = [
+      const categoriesData: Category[] = [
         {
           title: 'Mobile phones',
           image: phonecover,

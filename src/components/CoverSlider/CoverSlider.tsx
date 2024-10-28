@@ -2,15 +2,14 @@ import './CoverSlider.css';
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-// eslint-disable-next-line import/no-unresolved
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
-// eslint-disable-next-line import/no-unresolved
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { ArrowLeftIcon, ArrowRightIcon } from '../../assets';
 
-export const CoverSlider = () => {
+export const CoverSlider: React.FC = () => {
   const navigate = useNavigate();
+
   const handleRedirect = () => {
     navigate('/cart');
   };

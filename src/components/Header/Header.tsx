@@ -3,10 +3,11 @@ import './Header.css';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { RootState } from '../../store/store';
 
 import { HeartIcon, HomeIcon, WebsiteLogo } from '../../assets';
 
-export const Header = () => {
+export const Header: React.FC = () => {
   const navLinks = [
     { to: '/', label: 'Home' },
     { to: '/phones', label: 'Phones' },
@@ -14,8 +15,8 @@ export const Header = () => {
     { to: '/accessories', label: 'Accessories' },
   ];
 
-  const { cart } = useSelector((state) => state.cart);
-  const { favorites } = useSelector((state) => state.favorites);
+  const { cart } = useSelector((state: RootState) => state.cart);
+  const { favorites } = useSelector((state: RootState) => state.favorites);
 
   const favoriteCount = favorites.length;
   const cartCount = cart.reduce((acc, item) => acc + (item.quantity || 1), 0);
@@ -23,12 +24,12 @@ export const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const linkClass = (isActive) =>
+  const linkClass = (isActive: boolean) =>
     isActive
       ? 'text-xs font-extrabold uppercase text-colorBlack border-0 border-b-[10px] border-colorBlack h-full flex items-center justify-center nav-active'
       : 'text-xs font-extrabold uppercase text-colorGrey hover:text-colorGrey h-full flex items-center justify-center';
 
-  const buttonClass = (path) =>
+  const buttonClass = (path: string) =>
     location.pathname === path
       ? 'hover:text-colorGrey w-[86px] h-[86px] nav-active relative'
       : 'hover:text-colorGrey w-[86px] h-[86px] relative';

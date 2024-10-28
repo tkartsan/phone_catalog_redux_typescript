@@ -1,8 +1,7 @@
 import React from 'react';
-
 import { WebsiteLogo } from '../../assets';
 
-export const Footer = () => {
+export const Footer: React.FC = () => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,

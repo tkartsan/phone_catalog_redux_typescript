@@ -1,16 +1,20 @@
-import './Tablets.css';
+import './MobilePhones.css';
 
 import React, { useState } from 'react';
-
 import { Breadcrumb } from '../Breadcrumb';
 import { CustomDropdown } from '../CustomDropdown';
 import { Pagination } from '../Pagination';
 import { DeviceCard } from '../Shared/DeviceCard';
+import { Product } from 'types/global';
 
-export const Tablets = ({ tablets }) => {
-  const [currentPage, setCurrentPage] = useState(0);
-  const [tabletsPerPage, setTabletsPerPage] = useState(16);
-  const [sortOption, setSortOption] = useState('');
+interface MobilePhonesProps {
+  phones: Product[];
+}
+
+export const MobilePhones: React.FC<MobilePhonesProps> = ({ phones }) => {
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [phonesPerPage, setPhonesPerPage] = useState<number>(16);
+  const [sortOption, setSortOption] = useState<string>('');
 
   const sortOptions = [
     { value: '', label: 'Default sorting' },
@@ -27,15 +31,15 @@ export const Tablets = ({ tablets }) => {
     { value: 'ALL', label: 'ALL' },
   ];
 
-  if (!tablets) {
+  if (!phones) {
     return null;
   }
 
-  const handlePageChange = (data) => {
+  const handlePageChange = (data: { selected: number }) => {
     setCurrentPage(data.selected);
   };
 
-  const sortedTablets = [...tablets].sort((a, b) => {
+  const sortedPhones = [...phones].sort((a, b) => {
     switch (sortOption) {
       case 'lowestPrice':
         return a.priceRegular - b.priceRegular;
@@ -43,31 +47,27 @@ export const Tablets = ({ tablets }) => {
         return b.priceRegular - a.priceRegular;
       case 'biggestDiscount':
         return (
-          b.priceRegular - b.priceDiscount - (a.priceRegular - a.priceDiscount)
+          (b.priceRegular - (b.priceDiscount ?? b.priceRegular)) -
+          (a.priceRegular - (a.priceDiscount ?? a.priceRegular))
         );
       default:
         return 0;
     }
   });
 
-  const tabletCount = sortedTablets.length;
+  const phoneCount = sortedPhones.length;
   const totalPages =
-    tabletsPerPage === tablets.length
-      ? 1
-      : Math.ceil(tabletCount / tabletsPerPage);
+    phonesPerPage === phones.length ? 1 : Math.ceil(phoneCount / phonesPerPage);
 
-  const indexOfLastTablet = (currentPage + 1) * tabletsPerPage;
-  const indexOfFirstTablet = indexOfLastTablet - tabletsPerPage;
-  const currentTablets = sortedTablets.slice(
-    indexOfFirstTablet,
-    indexOfLastTablet,
-  );
+  const indexOfLastPhone = (currentPage + 1) * phonesPerPage;
+  const indexOfFirstPhone = indexOfLastPhone - phonesPerPage;
+  const currentPhones = sortedPhones.slice(indexOfFirstPhone, indexOfLastPhone);
 
   return (
     <div className="container">
       <Breadcrumb />
-      <div className="title">Tablets</div>
-      <p className="subtitle">{tabletCount} models</p>
+      <div className="title">Mobile Phones</div>
+      <p className="subtitle">{phoneCount} models</p>
 
       <div className="flex gap-6 mb-8">
         <CustomDropdown
@@ -82,11 +82,11 @@ export const Tablets = ({ tablets }) => {
         <CustomDropdown
           options={itemsPerPageOptions}
           selectedOption={itemsPerPageOptions.find(
-            (opt) => opt.value === tabletsPerPage || opt.value === 'ALL',
+            (opt) => opt.value === phonesPerPage || opt.value === 'ALL'
           )}
           setSelectedOption={(option) =>
-            setTabletsPerPage(
-              option.value === 'ALL' ? tablets.length : option.value,
+            setPhonesPerPage(
+              option.value === 'ALL' ? phones.length : Number(option.value)
             )
           }
           label="Items on page"
@@ -95,20 +95,20 @@ export const Tablets = ({ tablets }) => {
         />
       </div>
 
-      <div className="tablet-grid">
-        {currentTablets.map((tablet) => (
+      <div className="phone-grid">
+        {currentPhones.map((phone) => (
           <DeviceCard
-            key={tablet.id}
-            item={tablet}
-            itemType="tablets"
+            key={phone.id}
+            item={phone}
+            itemType="phones"
             isShowDiscount={true}
           />
         ))}
       </div>
 
       <Pagination
-        devices={tablets}
-        devicesPerPage={tabletsPerPage}
+        devices={phones}
+        devicesPerPage={phonesPerPage}
         totalPages={totalPages}
         handlePageChange={handlePageChange}
       />

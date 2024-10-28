@@ -3,14 +3,18 @@ import ReactDOM from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
-
+import { RootState } from '../../store/store';
 import { removeDeviceFromCompare } from '../../store/compareSlice';
 
-export const CompareModal = ({ closeModal }) => {
+interface CompareModalProps {
+  closeModal: () => void;
+}
+
+export const CompareModal: React.FC<CompareModalProps> = ({ closeModal }) => {
   const dispatch = useDispatch();
-  const { comparedDevices } = useSelector((state) => state.compare);
+  const { comparedDevices } = useSelector((state: RootState) => state.compare);
   const navigate = useNavigate();
-  const slideRef = useRef(null);
+  const slideRef = useRef<HTMLDivElement>(null);
 
   const isModalVisible = comparedDevices.length > 0;
 
@@ -85,6 +89,6 @@ export const CompareModal = ({ closeModal }) => {
         </div>
       </div>
     </CSSTransition>,
-    document.getElementById('modal-root'),
+    document.getElementById('modal-root') as HTMLElement,
   );
 };

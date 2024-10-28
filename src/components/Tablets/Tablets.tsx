@@ -1,16 +1,20 @@
-import './Accessories.css';
+import './Tablets.css';
 
 import React, { useState } from 'react';
-
 import { Breadcrumb } from '../Breadcrumb';
 import { CustomDropdown } from '../CustomDropdown';
 import { Pagination } from '../Pagination';
 import { DeviceCard } from '../Shared/DeviceCard';
+import { Product } from 'types/global';
 
-export const Accessories = ({ accessories }) => {
-  const [currentPage, setCurrentPage] = useState(0);
-  const [accessoriesPerPage, setAccessoriesPerPage] = useState(16);
-  const [sortOption, setSortOption] = useState('');
+interface TabletsProps {
+  tablets: Product[];
+}
+
+export const Tablets: React.FC<TabletsProps> = ({ tablets }) => {
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [tabletsPerPage, setTabletsPerPage] = useState<number>(16);
+  const [sortOption, setSortOption] = useState<string>('');
 
   const sortOptions = [
     { value: '', label: 'Default sorting' },
@@ -27,15 +31,15 @@ export const Accessories = ({ accessories }) => {
     { value: 'ALL', label: 'ALL' },
   ];
 
-  if (!accessories) {
+  if (!tablets) {
     return null;
   }
 
-  const handlePageChange = (data) => {
+  const handlePageChange = (data: { selected: number }) => {
     setCurrentPage(data.selected);
   };
 
-  const sortedAccessories = [...accessories].sort((a, b) => {
+  const sortedTablets = [...tablets].sort((a, b) => {
     switch (sortOption) {
       case 'lowestPrice':
         return a.priceRegular - b.priceRegular;
@@ -43,31 +47,32 @@ export const Accessories = ({ accessories }) => {
         return b.priceRegular - a.priceRegular;
       case 'biggestDiscount':
         return (
-          b.priceRegular - b.priceDiscount - (a.priceRegular - a.priceDiscount)
+          (b.priceRegular - (b.priceDiscount ?? b.priceRegular)) -
+          (a.priceRegular - (a.priceDiscount ?? a.priceRegular))
         );
       default:
         return 0;
     }
   });
 
-  const accessoryCount = sortedAccessories.length;
+  const tabletCount = sortedTablets.length;
   const totalPages =
-    accessoriesPerPage === accessories.length
+    tabletsPerPage === tablets.length
       ? 1
-      : Math.ceil(accessoryCount / accessoriesPerPage);
+      : Math.ceil(tabletCount / tabletsPerPage);
 
-  const indexOfLastAccessory = (currentPage + 1) * accessoriesPerPage;
-  const indexOfFirstAccessory = indexOfLastAccessory - accessoriesPerPage;
-  const currentAccessories = sortedAccessories.slice(
-    indexOfFirstAccessory,
-    indexOfLastAccessory,
+  const indexOfLastTablet = (currentPage + 1) * tabletsPerPage;
+  const indexOfFirstTablet = indexOfLastTablet - tabletsPerPage;
+  const currentTablets = sortedTablets.slice(
+    indexOfFirstTablet,
+    indexOfLastTablet
   );
 
   return (
     <div className="container">
       <Breadcrumb />
-      <div className="title">Accessories</div>
-      <p className="subtitle">{accessoryCount} models</p>
+      <div className="title">Tablets</div>
+      <p className="subtitle">{tabletCount} models</p>
 
       <div className="flex gap-6 mb-8">
         <CustomDropdown
@@ -82,11 +87,11 @@ export const Accessories = ({ accessories }) => {
         <CustomDropdown
           options={itemsPerPageOptions}
           selectedOption={itemsPerPageOptions.find(
-            (opt) => opt.value === accessoriesPerPage || opt.value === 'ALL',
+            (opt) => opt.value === tabletsPerPage || opt.value === 'ALL'
           )}
           setSelectedOption={(option) =>
-            setAccessoriesPerPage(
-              option.value === 'ALL' ? accessories.length : option.value,
+            setTabletsPerPage(
+              option.value === 'ALL' ? tablets.length : Number(option.value)
             )
           }
           label="Items on page"
@@ -95,20 +100,20 @@ export const Accessories = ({ accessories }) => {
         />
       </div>
 
-      <div className="accessory-grid">
-        {currentAccessories.map((accessory) => (
+      <div className="tablet-grid">
+        {currentTablets.map((tablet) => (
           <DeviceCard
-            key={accessory.id}
-            item={accessory}
-            itemType="accessories"
+            key={tablet.id}
+            item={tablet}
+            itemType="tablets"
             isShowDiscount={true}
           />
         ))}
       </div>
 
       <Pagination
-        devices={accessories}
-        devicesPerPage={accessoriesPerPage}
+        devices={tablets}
+        devicesPerPage={tabletsPerPage}
         totalPages={totalPages}
         handlePageChange={handlePageChange}
       />
