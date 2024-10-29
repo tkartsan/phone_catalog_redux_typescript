@@ -18,6 +18,7 @@ import { Tablets } from './components/Tablets';
 import { useDataFetch } from './hooks/useDataFetch';
 import { getItemsWithNumericId } from './utils/getItemsWithNumericId';
 import { RootState } from './store'; 
+import { ItemsDataState } from '@store/itemsDataSlice';
 
 const App: React.FC = () => {
   useDataFetch();
@@ -27,7 +28,7 @@ const App: React.FC = () => {
     tabletsData = [],
     accessoriesData = [],
     productsData = [],
-  } = useSelector((state: RootState) => state.itemsData || {});
+  } = useSelector((state: RootState) => state.itemsData || {}) as ItemsDataState;
 
   return (
     <div className="flex flex-col min-h-screen">

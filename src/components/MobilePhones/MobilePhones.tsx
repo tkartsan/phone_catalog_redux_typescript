@@ -8,7 +8,7 @@ import { DeviceCard } from '../Shared/DeviceCard';
 import { Product } from 'types/global';
 
 interface MobilePhonesProps {
-  phones: Product[];
+  phones: Product[] | null;
 }
 
 export const MobilePhones: React.FC<MobilePhonesProps> = ({ phones }) => {

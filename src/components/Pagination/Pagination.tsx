@@ -3,7 +3,14 @@ import './Pagination.css';
 import React from 'react';
 import ReactPaginate from 'react-paginate';
 
-export const Pagination = ({
+interface PaginationProps {
+  devices: unknown[]; 
+  devicesPerPage: number;
+  totalPages: number;
+  handlePageChange: (selectedItem: { selected: number }) => void;
+}
+
+export const Pagination: React.FC<PaginationProps> = ({
   devices,
   devicesPerPage,
   totalPages,

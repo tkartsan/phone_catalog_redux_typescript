@@ -8,7 +8,7 @@ import { DeviceCard } from '../Shared/DeviceCard';
 import { Product } from 'types/global';
 
 interface AccessoriesProps {
-  accessories: Product[];
+  accessories: Product[] | null;
 }
 
 export const Accessories: React.FC<AccessoriesProps> = ({ accessories }) => {
@@ -73,22 +73,20 @@ export const Accessories: React.FC<AccessoriesProps> = ({ accessories }) => {
       <Breadcrumb />
       <div className="title">Accessories</div>
       <p className="subtitle">{accessoryCount} models</p>
-
       <div className="flex gap-6 mb-8">
         <CustomDropdown
           options={sortOptions}
-          selectedOption={sortOptions.find((opt) => opt.value === sortOption)}
-          setSelectedOption={(option) => setSortOption(option.value)}
+          selectedOption={sortOptions.find((opt) => opt.value === sortOption) || null}
+          setSelectedOption={(option) => setSortOption(option.value.toString())}
           label="Sort by"
           isNarrowWidth={false}
           heightClass="40px"
         />
-
         <CustomDropdown
           options={itemsPerPageOptions}
           selectedOption={itemsPerPageOptions.find(
             (opt) => opt.value === accessoriesPerPage || opt.value === 'ALL'
-          )}
+          ) || null}
           setSelectedOption={(option) =>
             setAccessoriesPerPage(
               option.value === 'ALL' ? accessories.length : Number(option.value)

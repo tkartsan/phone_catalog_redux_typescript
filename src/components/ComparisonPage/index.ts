@@ -1,1 +1,1 @@
-export * from './ComparisonPage.tsx';
+export * from './ComparisonPage';

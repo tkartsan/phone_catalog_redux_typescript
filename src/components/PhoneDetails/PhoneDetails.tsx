@@ -4,68 +4,73 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeftIcon } from '../../assets';
 import { DescriptionPanel } from '../Shared/DescriptionPanel';
 import { DeviceSlider } from '../Shared/DeviceSlider';
+import { PurchasePanel } from '../Shared/PurchasePanel';
 import { RenderSpecs } from '../Shared/RenderSpecs';
+import { Breadcrumb } from '../Breadcrumb';
 
-import { Breadcrumb } from './../Breadcrumb';
-import { PurchasePanel } from './../Shared/PurchasePanel';
+import { Products } from 'types/global';
 
-export const TabletDetails = ({ tablets }) => {
+interface PhoneDetailsProps {
+  phones: Products;
+}
+
+export const PhoneDetails: React.FC<PhoneDetailsProps> = ({ phones }) => {
   const navigate = useNavigate();
-  const { id } = useParams();
-  const tablet = tablets?.find((t) => t.id === id);
-  const [selectedColor, setSelectedColor] = useState();
-  const [selectedCapacity, setSelectedCapacity] = useState();
-  const [selectedImage, setSelectedImage] = useState();
+  const { id } = useParams<{ id: string }>();
+  const phone = id && phones?.find((p) => p.id.toString() === id);
+  const [selectedColor, setSelectedColor] = useState<string | undefined>();
+  const [selectedCapacity, setSelectedCapacity] = useState<string | undefined>();
+  const [selectedImage, setSelectedImage] = useState<string | undefined>();
 
   useEffect(() => {
-    if (tablet) {
-      setSelectedColor(tablet.color);
-      setSelectedCapacity(tablet.capacity);
-      setSelectedImage(tablet.images[0]);
+    if (phone) {
+      setSelectedColor(phone.color);
+      setSelectedCapacity(phone.capacity);
+      setSelectedImage(phone.images[0]);
     }
-  }, [tablet]);
+  }, [phone]);
 
-  if (!tablets.length) {
+  if (!phones.length) {
     return null;
   }
 
-  if (!tablet) {
-    return <p>Tablet not found</p>;
+  if (!phone) {
+    return <p>Phone not found</p>;
   }
 
   const handleBackClick = () => {
     navigate(-1);
   };
 
-  const handleColorChange = (color) => {
+  const handleColorChange = (color: string) => {
     setSelectedColor(color);
-    const newTabletId = tablets.find(
-      (t) =>
-        t.namespaceId === tablet.namespaceId &&
-        t.color === color &&
-        t.capacity === selectedCapacity,
+    const newPhoneId = phones.find(
+      (p) =>
+        p.namespaceId === phone.namespaceId &&
+        p.color === color &&
+        p.capacity === selectedCapacity,
     )?.id;
 
-    if (newTabletId) {
-      navigate(`/tablets/${newTabletId}`);
+    if (newPhoneId) {
+      navigate(`/phones/${newPhoneId}`);
     }
   };
 
-  const handleCapacityChange = (capacity) => {
+  const handleCapacityChange = (capacity: string) => {
     setSelectedCapacity(capacity);
-    const newTabletId = tablets.find(
-      (t) =>
-        t.namespaceId === tablet.namespaceId &&
-        t.color === selectedColor &&
-        t.capacity === capacity,
+    const newPhoneId = phones.find(
+      (p) =>
+        p.namespaceId === phone.namespaceId &&
+        p.color === selectedColor &&
+        p.capacity === capacity,
     )?.id;
 
-    if (newTabletId) {
-      navigate(`/tablets/${newTabletId}`);
+    if (newPhoneId) {
+      navigate(`/phones/${newPhoneId}`);
     }
   };
 
-  const handleImageClick = (image) => {
+  const handleImageClick = (image: string) => {
     setSelectedImage(image);
   };
 
@@ -79,13 +84,13 @@ export const TabletDetails = ({ tablets }) => {
             onClick={handleBackClick}
           >
             <ArrowLeftIcon className="w-5 h-5" />
-            <span className="text-lg">Back</span>
+            <span className="text-colorGrey hover:text-colorBlack">Back</span>
           </div>
         </div>
-        <h1 className="text-3xl font-bold mb-6">{tablet.name}</h1>
+        <h1 className="text-3xl font-bold mb-6">{phone.name}</h1>
         <div className="flex justify-between">
           <div className="flex flex-col justify-start items-start gap-4">
-            {tablet.images.map((image, index) => (
+            {phone.images.map((image, index) => (
               <div
                 key={index}
                 className={`w-[78px] h-[78px] cursor-pointer border-solid ${
@@ -97,7 +102,7 @@ export const TabletDetails = ({ tablets }) => {
               >
                 <img
                   src={`/${image}`}
-                  alt={tablet.name}
+                  alt={phone.name}
                   className="object-contain w-full h-full"
                 />
               </div>
@@ -106,31 +111,31 @@ export const TabletDetails = ({ tablets }) => {
           <div className="flex justify-center">
             <img
               src={`/${selectedImage}`}
-              alt={tablet.name}
+              alt={phone.name}
               className="h-[464px] object-contain"
             />
           </div>
           <PurchasePanel
-            item={tablet}
-            itemType="tablet"
-            selectedColor={selectedColor}
-            selectedCapacity={selectedCapacity}
+            item={phone}
+            itemType="phone"
+            selectedColor={selectedColor || ''}
+            selectedCapacity={selectedCapacity || ''}
             handleColorChange={handleColorChange}
             handleCapacityChange={handleCapacityChange}
           />
         </div>
         <div className="flex gap-10 mt-6">
-          <DescriptionPanel description={tablet.description} />
-          <RenderSpecs item={tablet} itemType="tablet" />
+          <DescriptionPanel description={phone.description} />
+          <RenderSpecs item={phone} itemType="phone" />
         </div>
-        {!!tablets.length ? (
+        {!!phones.length ? (
           <div className="mt-8">
             <DeviceSlider
-              items={tablets.slice(0, 10)}
+              items={phones.slice(0, 10)}
               title="You may also like"
-              itemType="tablets"
+              itemType="phones"
               isShowDiscount={true}
-              sliderId="tablets-slider"
+              sliderId="phones-slider"
             />
           </div>
         ) : (

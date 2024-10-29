@@ -2,13 +2,14 @@ import React from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { ArrowRightIcon, HomeIcon } from '../../assets';
-import { RootState } from '../../store/store'; // Adjust path if needed
+import { RootState } from '../../store/store'; 
 
 export const Breadcrumb: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
   const location = useLocation();
 
-  const productsData = useSelector((state: RootState) => state.itemsData.productsData);
+  const allData = useSelector((state: RootState) => state.itemsData);
+  const { productsData } = allData;
 
   const pathParts = location.pathname.split('/').filter((part) => part);
 

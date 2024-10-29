@@ -17,8 +17,6 @@ export const HomePage: React.FC = () => {
  
   const { productsData, tabletsData, accessoriesData, phonesData } = data || {};
 
-  console.log({ phonesData, productsData, data });
-
   return (
     <>
       <CoverSlider />

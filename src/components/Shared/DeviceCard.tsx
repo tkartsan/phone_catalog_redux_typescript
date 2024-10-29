@@ -47,8 +47,6 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
 
   const imageToShow = item.images ? item.images[0] : null;
 
-  console.log({item});
-
   return (
     <Link to={`/${itemType}/${item.id}`} className="no-underline">
       <div className="bg-white border-solid border-colorLightGrey p-4 flex flex-col max-w-[272px] hover:shadow-lg transition-shadow duration-200">

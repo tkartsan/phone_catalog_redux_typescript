@@ -8,7 +8,7 @@ import { DeviceCard } from '../Shared/DeviceCard';
 import { Product } from 'types/global';
 
 interface TabletsProps {
-  tablets: Product[];
+  tablets: Product[] | null;
 }
 
 export const Tablets: React.FC<TabletsProps> = ({ tablets }) => {
