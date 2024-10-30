@@ -39,12 +39,7 @@ const App: React.FC = () => {
           <Route
             path="/"
             element={
-              <HomePage
-                phonesData={phonesData}
-                productsData={productsData}
-                tabletsData={tabletsData}
-                accessoriesData={accessoriesData}
-              />
+              <HomePage />
             }
           />
           <Route

@@ -1,14 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface Device {
-  id: number;
-  name: string;
-}
+import { Product } from 'types/global';
 
 export type DeviceType = 'phone' | 'tablet' | 'accessory' | null; 
 
 interface CompareState {
-  comparedDevices: Device[];
+  comparedDevices: Product[];
   deviceType: DeviceType;
 }
 
@@ -23,7 +19,7 @@ const compareSlice = createSlice({
   reducers: {
     addDeviceToCompare: (
       state,
-      action: PayloadAction<{ device: Device; deviceType: DeviceType }>
+      action: PayloadAction<{ device: Product; deviceType: DeviceType }>
     ) => {
       const { device, deviceType } = action.payload;
 

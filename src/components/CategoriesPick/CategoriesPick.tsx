@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom';
 import accessoriescover from './../../assets/accessoriescover.png';
 import phonecover from './../../assets/phonescover.png';
 import tabletcover from './../../assets/tabletscover.png';
+import { Product } from 'types/global';
 
 interface CategoriesPickProps {
-  phones: any[]; // Replace `any` with an appropriate type if available
-  tablets: any[];
-  accessories: any[];
+  phones: Product[] | null; 
+  tablets: Product[] | null;
+  accessories: Product[] | null;
 }
 
 interface Category {

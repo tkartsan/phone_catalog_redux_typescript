@@ -77,8 +77,8 @@ export const Tablets: React.FC<TabletsProps> = ({ tablets }) => {
       <div className="flex gap-6 mb-8">
         <CustomDropdown
           options={sortOptions}
-          selectedOption={sortOptions.find((opt) => opt.value === sortOption)}
-          setSelectedOption={(option) => setSortOption(option.value)}
+          selectedOption={sortOptions.find((opt) => opt.value === sortOption) || null}
+          setSelectedOption={(option) => setSortOption(option.value.toString())}
           label="Sort by"
           isNarrowWidth={false}
           heightClass="40px"
@@ -88,7 +88,7 @@ export const Tablets: React.FC<TabletsProps> = ({ tablets }) => {
           options={itemsPerPageOptions}
           selectedOption={itemsPerPageOptions.find(
             (opt) => opt.value === tabletsPerPage || opt.value === 'ALL'
-          )}
+          ) || null}
           setSelectedOption={(option) =>
             setTabletsPerPage(
               option.value === 'ALL' ? tablets.length : Number(option.value)

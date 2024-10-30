@@ -72,8 +72,8 @@ export const MobilePhones: React.FC<MobilePhonesProps> = ({ phones }) => {
       <div className="flex gap-6 mb-8">
         <CustomDropdown
           options={sortOptions}
-          selectedOption={sortOptions.find((opt) => opt.value === sortOption)}
-          setSelectedOption={(option) => setSortOption(option.value)}
+          selectedOption={sortOptions.find((opt) => opt.value === sortOption) || null}
+          setSelectedOption={(option) => setSortOption(option.value.toString())}
           label="Sort by"
           isNarrowWidth={false}
           heightClass="40px"
@@ -83,7 +83,7 @@ export const MobilePhones: React.FC<MobilePhonesProps> = ({ phones }) => {
           options={itemsPerPageOptions}
           selectedOption={itemsPerPageOptions.find(
             (opt) => opt.value === phonesPerPage || opt.value === 'ALL'
-          )}
+          ) || null}
           setSelectedOption={(option) =>
             setPhonesPerPage(
               option.value === 'ALL' ? phones.length : Number(option.value)

@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 
 import { DeviceSlider } from '../Shared/DeviceSlider';
 
-import { getMostRecentPhones } from '../../utils/getMostRecentPhones';
-import { getTopDiscountedPhones } from '../../utils/getTopDiscountedPhones';
+import { getMostRecentProducts } from '../../utils/getMostRecentProducts';
+import { getTopDiscountedProducts } from '../../utils/getTopDiscountedProducts';
 import { RootState } from '../../store/store';
 
 import { CategoriesPick } from './../CategoriesPick/CategoriesPick';
@@ -22,7 +22,7 @@ export const HomePage: React.FC = () => {
       <CoverSlider />
       {phonesData && productsData ? (
         <DeviceSlider
-          items={getMostRecentPhones(phonesData, productsData)}
+          items={getMostRecentProducts(phonesData, productsData)}
           title="Brand new models"
           itemType="phones"
           isShowDiscount={false}
@@ -38,7 +38,7 @@ export const HomePage: React.FC = () => {
       />
       {phonesData && productsData ? (
         <DeviceSlider
-          items={getTopDiscountedPhones(phonesData)}
+          items={getTopDiscountedProducts(phonesData)}
           title="Hot prices"
           itemType="phones"
           isShowDiscount={true}

@@ -42,7 +42,6 @@ export const CompareModal: React.FC<CompareModalProps> = ({ closeModal }) => {
         >
           ✕
         </button>
-
         <div className="flex gap-4 items-start justify-start px-4 mb-2">
           {comparedDevices.map((device) => (
             <div
