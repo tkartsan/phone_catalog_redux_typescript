@@ -3,9 +3,9 @@ import './Header.css';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { RootState } from '../../store/store';
 
 import { HeartIcon, HomeIcon, WebsiteLogo } from '../../assets';
+import { RootState } from '../../store/store';
 
 export const Header: React.FC = () => {
   const navLinks = [
@@ -15,8 +15,8 @@ export const Header: React.FC = () => {
     { to: '/accessories', label: 'Accessories' },
   ];
 
-  const { cart } = useSelector((state: RootState) => state.cart);
-  const { favorites } = useSelector((state: RootState) => state.favorites);
+  const { cart = [] } = useSelector((state: RootState) => state.cart);
+  const { favorites = [] } = useSelector((state: RootState) => state.favorites);
 
   const favoriteCount = favorites.length;
   const cartCount = cart.reduce((acc, item) => acc + (item.quantity || 1), 0);

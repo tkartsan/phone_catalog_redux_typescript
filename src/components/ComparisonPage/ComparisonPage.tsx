@@ -63,7 +63,7 @@ export const ComparisonPage: React.FC = () => {
               alt={device.name}
               className="h-[200px] object-contain mx-auto mb-4"
             />
-            <h2 className="text-xl font-semibold text-center">{device.name}</h2>
+            <h2 className="text-xl font-semibold text-center h-[56px]">{device.name}</h2>
           </div>
         ))}
       </div>
