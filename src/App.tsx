@@ -19,8 +19,7 @@ import { useDataFetch } from './hooks/useDataFetch';
 import { getItemsWithNumericId } from './utils/getItemsWithNumericId';
 import { RootState } from './store'; 
 import { ItemsDataState } from './store/itemsDataSlice';
-import { LearningPage } from './components/LearningPage';
-import EveryPage from './components/LearningPage/EveryPage';
+import { GenericLearning, LearningPage } from './components/LearningPage';
 
 const App: React.FC = () => {
   useDataFetch();
@@ -58,7 +57,7 @@ const App: React.FC = () => {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/comparison" element={<ComparisonPage />} />
           <Route path="/learning" element={<LearningPage />} />
-          <Route path="/learning/:taskId" element={<EveryPage />} /> 
+          <Route path="/learning/:taskId" element={<GenericLearning />} /> 
         </Routes>
       </main>
       <Footer />

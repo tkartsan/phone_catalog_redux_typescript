@@ -1,2 +1,2 @@
 export * from "./LearningPage";
-export * from "./EveryPage";
+export * from "./GenericLearning";

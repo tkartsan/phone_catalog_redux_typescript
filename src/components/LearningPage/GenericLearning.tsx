@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import tasksData from './../../tasks.json';
-import './EveryPage.css';
+import tasksData from '../../tasks.json';
+import './GenericLearning.css';
 
 type Task = {
   title: string;
@@ -11,11 +11,12 @@ type Task = {
   tests: { input: any; expectedOutput: any }[];
 };
 
-const EveryPage: React.FC = () => {
+export const GenericLearning: React.FC = () => {
     const { taskId } = useParams<{ taskId: string }>();
     const [task, setTask] = useState<Task | null>(null);
     const [userCode, setUserCode] = useState<string>('');
     const [result, setResult] = useState<string>('');
+    const [isSuccess, setIsSuccess] = useState<boolean | null>(null); // New state to track success/failure
 
     useEffect(() => {
         // Load the task based on the URL parameter
@@ -25,6 +26,7 @@ const EveryPage: React.FC = () => {
             setUserCode(taskData.defaultCode);
         } else {
             setResult('Task not found');
+            setIsSuccess(false);
         }
     }, [taskId]);
 
@@ -39,9 +41,16 @@ const EveryPage: React.FC = () => {
                 userFunction(input) === expectedOutput
             );
 
-            setResult(allTestsPassed ? 'All tests passed! Great job!' : 'Some tests failed. Please try again.');
+            if (allTestsPassed) {
+                setResult('All tests passed! Great job!');
+                setIsSuccess(true);
+            } else {
+                setResult('Some tests failed. Please try again.');
+                setIsSuccess(false);
+            }
         } catch (error) {
             setResult(`There was an error in your code: ${(error as Error).message}`);
+            setIsSuccess(false);
         }
     };
 
@@ -62,9 +71,9 @@ const EveryPage: React.FC = () => {
                 onChange={(e) => setUserCode(e.target.value)}
             />
             <button className="every-page-button" onClick={runCode}>Run</button>
-            <div className="every-page-result">{result}</div>
+            <div className={`every-page-result ${isSuccess ? 'success' : 'failure'}`}>
+                {result}
+            </div>
         </div>
     );
 };
-
-export default EveryPage;
