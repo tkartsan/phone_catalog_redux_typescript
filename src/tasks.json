@@ -1,0 +1,23 @@
+{
+    "every": {
+      "title": "JavaScript Practice Task - every Method",
+      "description": "Your task is to write a function that checks if all elements in an array are greater than 10. Use the JavaScript every method to accomplish this.",
+      "example": "For the input [11, 12, 15, 20], the result should be true. For [5, 12, 15], the result should be false.",
+      "defaultCode": "function checkAllGreaterThanTen(arr) {\n    // Your code here\n    return;\n}",
+      "tests": [
+        { "input": [11, 12, 15, 20], "expectedOutput": true },
+        { "input": [5, 12, 15], "expectedOutput": false }
+      ]
+    },
+    "someOtherTask": {
+      "title": "Another JavaScript Task",
+      "description": "This task involves writing a function that checks if some elements in an array meet a certain condition.",
+      "example": "For the input [5, 12, 15], the result should be true if any value is above 10.",
+      "defaultCode": "function checkSomeGreaterThanTen(arr) {\n    // Your code here\n    return;\n}",
+      "tests": [
+        { "input": [5, 12, 15], "expectedOutput": true },
+        { "input": [1, 2, 3], "expectedOutput": false }
+      ]
+    }
+  }
+  

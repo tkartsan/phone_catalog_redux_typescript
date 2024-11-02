@@ -14,6 +14,12 @@ export const LearningPage: React.FC = () => {
                 >
                     .every method
                 </button>
+                <button
+                    className="p-4 border border-gray-300 rounded hover:bg-gray-200 border-solid border-bgColorGrey"
+                    onClick={() => navigate('/learning/someOtherTask')}
+                >
+                   someOtherTask
+                </button>
             </div>
         </div>
     );

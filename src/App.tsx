@@ -38,53 +38,27 @@ const App: React.FC = () => {
       <main className="flex flex-col gap-8 pt-[100px]">
         <ScrollToTop />
         <Routes>
-          <Route
-            path="/"
-            element={
-              <HomePage />
-            }
-          />
-          <Route
-            path="/phones"
-            element={<MobilePhones phones={phonesData} />}
-          />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/phones" element={<MobilePhones phones={phonesData} />} />
           <Route path="/tablets" element={<Tablets tablets={tabletsData} />} />
           <Route
             path="/tablets/:id"
-            element={
-              <TabletDetails
-                tablets={getItemsWithNumericId(tabletsData, productsData)}
-              />
-            }
+            element={<TabletDetails tablets={getItemsWithNumericId(tabletsData, productsData)} />}
           />
-          <Route
-            path="/accessories"
-            element={<Accessories accessories={accessoriesData} />}
-          />
+          <Route path="/accessories" element={<Accessories accessories={accessoriesData} />} />
           <Route
             path="/accessories/:id"
-            element={
-              <AccessoryDetails
-                accessories={getItemsWithNumericId(
-                  accessoriesData,
-                  productsData,
-                )}
-              />
-            }
+            element={<AccessoryDetails accessories={getItemsWithNumericId(accessoriesData, productsData)} />}
           />
           <Route
             path="/phones/:id"
-            element={
-              <PhoneDetails
-                phones={getItemsWithNumericId(phonesData, productsData)}
-              />
-            }
+            element={<PhoneDetails phones={getItemsWithNumericId(phonesData, productsData)} />}
           />
           <Route path="/favorites" element={<FavoritePhones />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/comparison" element={<ComparisonPage />} />
           <Route path="/learning" element={<LearningPage />} />
-          <Route path="/learning/every" element={<EveryPage />} /> 
+          <Route path="/learning/:taskId" element={<EveryPage />} /> 
         </Routes>
       </main>
       <Footer />
