@@ -9,6 +9,7 @@ type Task = {
   example: string;
   defaultCode: string;
   tests: { input: any; expectedOutput: any }[];
+  keyword?: string;
 };
 
 export const GenericLearning: React.FC = () => {
@@ -16,10 +17,9 @@ export const GenericLearning: React.FC = () => {
     const [task, setTask] = useState<Task | null>(null);
     const [userCode, setUserCode] = useState<string>('');
     const [result, setResult] = useState<string>('');
-    const [isSuccess, setIsSuccess] = useState<boolean | null>(null); // New state to track success/failure
+    const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
 
     useEffect(() => {
-        // Load the task based on the URL parameter
         const taskData = tasksData[taskId || ''];
         if (taskData) {
             setTask(taskData);
@@ -33,6 +33,13 @@ export const GenericLearning: React.FC = () => {
     const runCode = () => {
         if (!task) return;
 
+        let keywordUsed = true;
+
+        // Check for keyword if specified
+        if (task.keyword && !userCode.includes(task.keyword)) {
+            keywordUsed = false;
+        }
+
         try {
             const userFunction = new Function('return ' + userCode)();
 
@@ -41,11 +48,14 @@ export const GenericLearning: React.FC = () => {
                 userFunction(input) === expectedOutput
             );
 
-            if (allTestsPassed) {
+            if (allTestsPassed && keywordUsed) {
                 setResult('All tests passed! Great job!');
                 setIsSuccess(true);
+            } else if (allTestsPassed && !keywordUsed) {
+                setResult(`Your solution is correct, but you must use the "${task.keyword}" method.`);
+                setIsSuccess(false);
             } else {
-                setResult('Some tests failed. Please try again.');
+                setResult('You did it wrong. Please try again.');
                 setIsSuccess(false);
             }
         } catch (error) {
@@ -55,23 +65,23 @@ export const GenericLearning: React.FC = () => {
     };
 
     if (!task) {
-        return <div className="every-page-container">Loading...</div>;
+        return <div className="learning-page-container">Loading...</div>;
     }
 
     return (
-        <div className="every-page-container">
+        <div className="learning-page-container">
             <h1>{task.title}</h1>
-            <div className="every-page-description">
+            <div className="task-description">
                 <p>{task.description}</p>
                 <p><strong>Example:</strong> {task.example}</p>
             </div>
             <textarea
-                className="every-page-textarea"
+                className="code-textarea"
                 value={userCode}
                 onChange={(e) => setUserCode(e.target.value)}
             />
-            <button className="every-page-button" onClick={runCode}>Run</button>
-            <div className={`every-page-result ${isSuccess ? 'success' : 'failure'}`}>
+            <button className="run-button" onClick={runCode}>Run</button>
+            <div className={`result-message ${isSuccess ? 'success' : 'failure'}`}>
                 {result}
             </div>
         </div>
