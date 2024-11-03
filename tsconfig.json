@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES6",                             // Target ECMAScript 6
+    "module": "ESNext",                          // Use ESNext module system (better for React)
+    "jsx": "preserve",                           //
+    "strict": true,                              // Enable all strict type-checking options
+    "moduleResolution": "node",                  // Resolve modules like Node.js
+    "esModuleInterop": true,                     // Allow ES module import/export interoperability with CommonJS
+    "skipLibCheck": true,                        // Skip checking types in node_modules
+    "forceConsistentCasingInFileNames": true,    // Ensure consistent casing in file names
+    "resolveJsonModule": true,                   // Support importing .json files
+    "noImplicitAny": false,                      // If set to true, will enforce no "any" type
+    "baseUrl": "./src",                          // Set base URL for module imports
+    "paths": {                                   // Optional: Path aliases for easy imports
+      "@components/*": ["components/*"],
+      "@hooks/*": ["hooks/*"],
+      "@store/*": ["store/*"],
+      "@utils/*": ["utils/*"]
+    }
+  },
+  "include": ["src/**/*"],                       // Include all files in src directory
+  "exclude": ["node_modules", "dist"]            // Exclude node_modules and dist directories
+}
