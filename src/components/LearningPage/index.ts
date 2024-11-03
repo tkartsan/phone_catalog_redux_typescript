@@ -1,2 +1,2 @@
 export * from "./LearningPage";
-export * from "./GenericLearning";
+export * from "./JavaScriptTasksWithTests";

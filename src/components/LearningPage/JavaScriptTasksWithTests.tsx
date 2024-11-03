@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import tasksData from '../../tasks.json';
-import './GenericLearning.css';
+import './JavaScriptTasksWithTests.css';
 
 type Task = {
   title: string;
@@ -12,7 +12,7 @@ type Task = {
   keyword?: string;
 };
 
-export const GenericLearning: React.FC = () => {
+export const JavaScriptTasksWithTests: React.FC = () => {
     const { taskId } = useParams<{ taskId: string }>();
     const [task, setTask] = useState<Task | null>(null);
     const [userCode, setUserCode] = useState<string>('');
