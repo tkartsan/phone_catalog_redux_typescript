@@ -23,13 +23,11 @@ import { JavaScriptTasksWithTests, LearningPage } from './components/LearningPag
 
 const App: React.FC = () => {
   useDataFetch();
-  
-  const {
-    phonesData = [],
-    tabletsData = [],
-    accessoriesData = [],
-    productsData = [],
-  } = useSelector((state: RootState) => state.itemsData || {}) as ItemsDataState;
+
+  const phonesData = useSelector((state: RootState) => state.itemsData.phonesData);
+  const tabletsData = useSelector((state: RootState) => state.itemsData.tabletsData);
+  const accessoriesData = useSelector((state: RootState) => state.itemsData.accessoriesData);
+  const productsData = useSelector((state: RootState) => state.itemsData.productsData);
 
   return (
     <div className="flex flex-col min-h-screen">

@@ -10,14 +10,15 @@ import {
 
 import { useFetch } from './useFetch';
 import { AppDispatch } from '../store/store';
+import { Product, ProductItem } from 'types/global';
 
 export const useDataFetch = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const { data: phonesData } = useFetch<any[]>('/api/phones.json');
-  const { data: tabletsData } = useFetch<any[]>('/api/tablets.json');
-  const { data: accessoriesData } = useFetch<any[]>('/api/accessories.json');
-  const { data: productsData } = useFetch<any[]>('/api/products.json');
+  const { data: phonesData } = useFetch<Product[]>('/api/phones.json');
+  const { data: tabletsData } = useFetch<Product[]>('/api/tablets.json');
+  const { data: accessoriesData } = useFetch<Product[]>('/api/accessories.json');
+  const { data: productsData } = useFetch<ProductItem[]>('/api/products.json');
 
   useEffect(() => {
     if (phonesData) {
