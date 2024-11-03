@@ -4,38 +4,39 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeftIcon } from '../../assets';
 import { DescriptionPanel } from '../Shared/DescriptionPanel';
 import { DeviceSlider } from '../Shared/DeviceSlider';
+import { PurchasePanel } from '../Shared/PurchasePanel';
 import { RenderSpecs } from '../Shared/RenderSpecs';
-import { Breadcrumb } from './../Breadcrumb';
-import { PurchasePanel } from './../Shared/PurchasePanel';
+import { Breadcrumb } from '../Breadcrumb';
 
 import { Product } from 'types/global';
 
-interface TabletDetailsProps {
-  tablets: Product[];
+interface DeviceDetailsProps {
+  items: Product[];
+  itemType: 'phone' | 'tablet' | 'accessory';
 }
 
-export const TabletDetails: React.FC<TabletDetailsProps> = ({ tablets }) => {
+export const DeviceDetails: React.FC<DeviceDetailsProps> = ({ items, itemType }) => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const tablet = id && tablets?.find((p) => p.id.toString() === id);
+  const device = id && items?.find((item) => item.id.toString() === id);
   const [selectedColor, setSelectedColor] = useState<string | undefined>();
   const [selectedCapacity, setSelectedCapacity] = useState<string | undefined>();
   const [selectedImage, setSelectedImage] = useState<string | undefined>();
 
   useEffect(() => {
-    if (tablet) {
-      setSelectedColor(tablet.color);
-      setSelectedCapacity(tablet.capacity);
-      setSelectedImage(tablet.images[0]);
+    if (device) {
+      setSelectedColor(device.color);
+      setSelectedCapacity(device.capacity);
+      setSelectedImage(device.images[0]);
     }
-  }, [tablet]);
+  }, [device]);
 
-  if (!tablets.length) {
+  if (!items.length) {
     return null;
   }
 
-  if (!tablet) {
-    return <p>Tablet not found</p>;
+  if (!device) {
+    return <p>{itemType.charAt(0).toUpperCase() + itemType.slice(1)} not found</p>;
   }
 
   const handleBackClick = () => {
@@ -44,29 +45,29 @@ export const TabletDetails: React.FC<TabletDetailsProps> = ({ tablets }) => {
 
   const handleColorChange = (color: string) => {
     setSelectedColor(color);
-    const newTabletId = tablets.find(
-      (t) =>
-        t.namespaceId === tablet.namespaceId &&
-        t.color === color &&
-        t.capacity === selectedCapacity,
+    const newDeviceId = items.find(
+      (item) =>
+        item.namespaceId === device.namespaceId &&
+        item.color === color &&
+        item.capacity === selectedCapacity,
     )?.id;
 
-    if (newTabletId) {
-      navigate(`/tablets/${newTabletId}`);
+    if (newDeviceId) {
+      navigate(`/${itemType}s/${newDeviceId}`);
     }
   };
 
   const handleCapacityChange = (capacity: string) => {
     setSelectedCapacity(capacity);
-    const newTabletId = tablets.find(
-      (t) =>
-        t.namespaceId === tablet.namespaceId &&
-        t.color === selectedColor &&
-        t.capacity === capacity,
+    const newDeviceId = items.find(
+      (item) =>
+        item.namespaceId === device.namespaceId &&
+        item.color === selectedColor &&
+        item.capacity === capacity,
     )?.id;
 
-    if (newTabletId) {
-      navigate(`/tablets/${newTabletId}`);
+    if (newDeviceId) {
+      navigate(`/${itemType}s/${newDeviceId}`);
     }
   };
 
@@ -87,10 +88,10 @@ export const TabletDetails: React.FC<TabletDetailsProps> = ({ tablets }) => {
             <span className="text-lg">Back</span>
           </div>
         </div>
-        <h1 className="text-3xl font-bold mb-6">{tablet.name}</h1>
+        <h1 className="text-3xl font-bold mb-6">{device.name}</h1>
         <div className="flex justify-between">
           <div className="flex flex-col justify-start items-start gap-4">
-            {tablet.images.map((image, index) => (
+            {device.images.map((image, index) => (
               <div
                 key={index}
                 className={`w-[78px] h-[78px] cursor-pointer border-solid ${
@@ -102,7 +103,7 @@ export const TabletDetails: React.FC<TabletDetailsProps> = ({ tablets }) => {
               >
                 <img
                   src={`/${image}`}
-                  alt={tablet.name}
+                  alt={device.name}
                   className="object-contain w-full h-full"
                 />
               </div>
@@ -111,13 +112,13 @@ export const TabletDetails: React.FC<TabletDetailsProps> = ({ tablets }) => {
           <div className="flex justify-center">
             <img
               src={`/${selectedImage}`}
-              alt={tablet.name}
+              alt={device.name}
               className="h-[464px] object-contain"
             />
           </div>
           <PurchasePanel
-            item={tablet}
-            itemType="tablet"
+            item={device}
+            itemType={itemType}
             selectedColor={selectedColor || ''}
             selectedCapacity={selectedCapacity || ''}
             handleColorChange={handleColorChange}
@@ -125,17 +126,17 @@ export const TabletDetails: React.FC<TabletDetailsProps> = ({ tablets }) => {
           />
         </div>
         <div className="flex gap-10 mt-6">
-          <DescriptionPanel description={tablet.description} />
-          <RenderSpecs item={tablet} itemType="tablet" />
+          <DescriptionPanel description={device.description} />
+          <RenderSpecs item={device} itemType={itemType} />
         </div>
-        {!!tablets.length ? (
+        {!!items.length ? (
           <div className="mt-8">
             <DeviceSlider
-              items={tablets.slice(0, 10)}
+              items={items.slice(0, 10)}
               title="You may also like"
-              itemType="tablets"
+              itemType={itemType}
               isShowDiscount={true}
-              sliderId="tablets-slider"
+              sliderId={`${itemType}-slider`}
             />
           </div>
         ) : (

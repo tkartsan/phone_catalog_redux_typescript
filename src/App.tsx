@@ -3,23 +3,20 @@ import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 
 import { Accessories } from './components/Accessories';
-import { AccessoryDetails } from './components/AccessoryDetails';
 import { CartPage } from './components/Cart/CartPage';
 import { ComparisonPage } from './components/ComparisonPage';
-import { FavoritePhones } from './components/FavoritePhones';
+import { FavoriteDevices } from './components/FavoriteDevices';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 import { HomePage } from './components/HomePage';
 import { MobilePhones } from './components/MobilePhones';
-import { PhoneDetails } from './components/PhoneDetails';
-import { ScrollToTop } from './components/ScrollToTop';
-import { TabletDetails } from './components/TabletDetails';
 import { Tablets } from './components/Tablets';
+import { ScrollToTop } from './components/ScrollToTop';
 import { useDataFetch } from './hooks/useDataFetch';
 import { getItemsWithNumericId } from './utils/getItemsWithNumericId';
-import { RootState } from './store'; 
-import { ItemsDataState } from './store/itemsDataSlice';
+import { RootState } from './store';
 import { JavaScriptTasksWithTests, LearningPage } from './components/LearningPage';
+import { DeviceDetails } from './components/DeviceDetails/DeviceDetails';
 
 const App: React.FC = () => {
   useDataFetch();
@@ -38,24 +35,39 @@ const App: React.FC = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/phones" element={<MobilePhones phones={phonesData} />} />
           <Route path="/tablets" element={<Tablets tablets={tabletsData} />} />
-          <Route
-            path="/tablets/:id"
-            element={<TabletDetails tablets={getItemsWithNumericId(tabletsData, productsData)} />}
-          />
           <Route path="/accessories" element={<Accessories accessories={accessoriesData} />} />
           <Route
-            path="/accessories/:id"
-            element={<AccessoryDetails accessories={getItemsWithNumericId(accessoriesData, productsData)} />}
+            path="/phones/:id"
+            element={
+              <DeviceDetails
+                items={getItemsWithNumericId(phonesData, productsData)}
+                itemType="phone"
+              />
+            }
           />
           <Route
-            path="/phones/:id"
-            element={<PhoneDetails phones={getItemsWithNumericId(phonesData, productsData)} />}
+            path="/tablets/:id"
+            element={
+              <DeviceDetails
+                items={getItemsWithNumericId(tabletsData, productsData)}
+                itemType="tablet"
+              />
+            }
           />
-          <Route path="/favorites" element={<FavoritePhones />} />
+          <Route
+            path="/accessories/:id"
+            element={
+              <DeviceDetails
+                items={getItemsWithNumericId(accessoriesData, productsData)}
+                itemType="accessory"
+              />
+            }
+          />
+          <Route path="/favorites" element={<FavoriteDevices />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/comparison" element={<ComparisonPage />} />
           <Route path="/learning" element={<LearningPage />} />
-          <Route path="/learning/:taskId" element={<JavaScriptTasksWithTests />} /> 
+          <Route path="/learning/:taskId" element={<JavaScriptTasksWithTests />} />
         </Routes>
       </main>
       <Footer />
