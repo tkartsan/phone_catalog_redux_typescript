@@ -10,7 +10,7 @@ import { Product, ProductItem } from 'types/global';
 
 interface PurchasePanelProps {
   item: Product;
-  itemType: DeviceType;
+  itemType: 'phones' | 'tablets' | 'accessories';
   selectedColor: string;
   handleColorChange: (color: string) => void;
   selectedCapacity: string;

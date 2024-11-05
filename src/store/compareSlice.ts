@@ -5,7 +5,7 @@ export type DeviceType = 'phone' | 'tablet' | 'accessory' | null;
 
 interface CompareState {
   comparedDevices: Product[];
-  deviceType: DeviceType;
+  deviceType: 'phones' | 'tablets' | 'accessories' | null;
 }
 
 const initialState: CompareState = {
@@ -19,7 +19,7 @@ const compareSlice = createSlice({
   reducers: {
     addDeviceToCompare: (
       state,
-      action: PayloadAction<{ device: Product; deviceType: DeviceType }>
+      action: PayloadAction<{ device: Product; deviceType: 'phones' | 'tablets' | 'accessories' }>
     ) => {
       const { device, deviceType } = action.payload;
 

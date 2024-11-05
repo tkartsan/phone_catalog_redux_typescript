@@ -12,10 +12,9 @@ export const LearningPage: React.FC = () => {
     const [tasks, setTasks] = useState<Task[]>([]);
 
     useEffect(() => {
-        // Convert tasks object to an array with id and label directly from the imported data
         const tasksArray: Task[] = Object.entries(tasksData).map(([id, task]) => ({
             id,
-            label: task.keyword + " method" // Assuming each task's label is based on its keyword
+            label: task.keyword + " method" 
         }));
         setTasks(tasksArray);
     }, []);

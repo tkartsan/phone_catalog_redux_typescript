@@ -13,7 +13,7 @@ interface Item {
 
 interface RenderSpecsProps {
   item: Item;
-  itemType: 'phone' | 'tablet' | 'accessory';
+  itemType: 'phones' | 'tablets' | 'accessories';
 }
 
 export const RenderSpecs: React.FC<RenderSpecsProps> = ({ item, itemType }) => {

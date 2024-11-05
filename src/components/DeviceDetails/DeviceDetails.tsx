@@ -12,7 +12,7 @@ import { Product } from 'types/global';
 
 interface DeviceDetailsProps {
   items: Product[];
-  itemType: 'phone' | 'tablet' | 'accessory';
+  itemType: 'phones' | 'tablets' | 'accessories';
 }
 
 export const DeviceDetails: React.FC<DeviceDetailsProps> = ({ items, itemType }) => {
@@ -53,7 +53,7 @@ export const DeviceDetails: React.FC<DeviceDetailsProps> = ({ items, itemType })
     )?.id;
 
     if (newDeviceId) {
-      navigate(`/${itemType}s/${newDeviceId}`);
+      navigate(`/${itemType}/${newDeviceId}`);
     }
   };
 
@@ -67,7 +67,7 @@ export const DeviceDetails: React.FC<DeviceDetailsProps> = ({ items, itemType })
     )?.id;
 
     if (newDeviceId) {
-      navigate(`/${itemType}s/${newDeviceId}`);
+      navigate(`/${itemType}/${newDeviceId}`);
     }
   };
 
