@@ -226,6 +226,6 @@
       { "input": "hello", "expectedOutput": "olleh" },
       { "input": "world", "expectedOutput": "dlrow" }
     ],
-    "keyword": ".split .reverse .join"
-  }
+    "keyword": ".split, .reverse, .join"
+}
 }
