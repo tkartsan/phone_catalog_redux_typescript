@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 
@@ -18,16 +18,43 @@ import { Tablets } from './components/Tablets';
 import { useDataFetch } from './hooks/useDataFetch';
 import { getItemsWithNumericId } from './utils/getItemsWithNumericId';
 import { RootState } from './store'; 
-import { ItemsDataState } from './store/itemsDataSlice';
 import { JavaScriptTasksWithTests, LearningPage } from './components/LearningPage';
 
 const App: React.FC = () => {
-  useDataFetch();
+  useDataFetch(); // Ensure data fetch on component load
 
   const phonesData = useSelector((state: RootState) => state.itemsData.phonesData);
   const tabletsData = useSelector((state: RootState) => state.itemsData.tabletsData);
   const accessoriesData = useSelector((state: RootState) => state.itemsData.accessoriesData);
   const productsData = useSelector((state: RootState) => state.itemsData.productsData);
+
+  // Function to cache essential URLs
+  const cacheRoutes = () => {
+    const routes = [
+      '/',
+      '/phones',
+      '/tablets',
+      '/accessories',
+      '/favorites',
+      '/cart',
+      '/comparison',
+      '/learning',
+    ];
+
+    routes.forEach((route) => {
+      if (!localStorage.getItem(route)) {
+        localStorage.setItem(route, 'cached');
+      }
+    });
+  };
+
+  useEffect(() => {
+    cacheRoutes();
+
+    import('./components/LearningPage').then(module => {
+      module.LearningPage; // Access the component to trigger preloading
+    });
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -55,7 +82,7 @@ const App: React.FC = () => {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/comparison" element={<ComparisonPage />} />
           <Route path="/learning" element={<LearningPage />} />
-          <Route path="/learning/:taskId" element={<JavaScriptTasksWithTests />} /> 
+          <Route path="/learning/:taskId" element={<JavaScriptTasksWithTests />} />
         </Routes>
       </main>
       <Footer />
