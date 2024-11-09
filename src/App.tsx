@@ -18,7 +18,7 @@ import { JavaScriptTasksWithTests, LearningPage } from './components/LearningPag
 import { NotFoundPage } from './components/NotFoundPage';
 
 const App: React.FC = () => {
-  useDataFetch(); // Ensure data fetch on component load
+  useDataFetch(); 
 
   const phonesData = useSelector((state: RootState) => state.itemsData.phonesData);
   const tabletsData = useSelector((state: RootState) => state.itemsData.tabletsData);

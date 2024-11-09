@@ -35,7 +35,6 @@ export const JavaScriptTasksWithTests: React.FC = () => {
 
     let keywordUsed = true;
 
-    // Check if the keyword(s) are present in the user code
     if (task.keyword) {
       const keywords = task.keyword.split(',').map(kw => kw.trim());
       keywordUsed = keywords.every(kw => userCode.includes(kw));
@@ -47,23 +46,18 @@ export const JavaScriptTasksWithTests: React.FC = () => {
       const allTestsPassed = task.tests.every(({ input, expectedOutput }) => {
         let output;
 
-        // Ensure `input` is passed correctly depending on its type
         if (Array.isArray(input)) {
           if (input.length > 1) {
-            // Spread input if it’s an array with multiple arguments
             output = userFunction(...input);
           } else {
-            // Pass as a single array if it contains one array element
             output = userFunction(input[0]);
           }
         } else {
-          // Pass primitive or non-array input as is
           output = userFunction(input);
         }
 
         console.log('Output:', output);
 
-        // Compare output and expectedOutput for arrays and primitive types
         if (Array.isArray(expectedOutput) && Array.isArray(output)) {
           return areArraysEqual(output, expectedOutput);
         } else if (typeof expectedOutput === 'object' && typeof output === 'object') {
@@ -89,7 +83,6 @@ export const JavaScriptTasksWithTests: React.FC = () => {
     }
   };
 
-  // Helper function to check if two arrays are equal
   const areArraysEqual = (arr1, arr2) => {
     if (arr1.length !== arr2.length) return false;
     return arr1.every((value, index) => value === arr2[index]);

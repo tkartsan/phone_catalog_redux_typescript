@@ -8,7 +8,6 @@ export const CartPage: React.FC = () => {
   const { cart } = useSelector((state: RootState) => state.cart);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Calculate total price
   const totalPrice = cart.reduce(
     (acc, purchase) =>
       acc +

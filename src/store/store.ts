@@ -7,7 +7,6 @@ import compareReducer from './compareSlice';
 import favoritesReducer from './favoritesSlice';
 import itemsDataReducer from './itemsDataSlice';
 
-// Separate configurations for each slice
 const cartPersistConfig = {
   key: 'cart',
   storage,

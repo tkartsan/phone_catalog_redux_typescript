@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import tasksData from '../../tasks.json'; // Adjust the path based on your project structure
+import tasksData from '../../tasks.json'; 
 
 interface Task {
     id: string;
