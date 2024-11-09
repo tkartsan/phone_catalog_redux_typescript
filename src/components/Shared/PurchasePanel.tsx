@@ -6,7 +6,7 @@ import { addToCart, removeFromCart } from '../../store/cartSlice';
 import { addDeviceToCompare, DeviceType } from '../../store/compareSlice';
 import { CompareModal } from '../CompareModal';
 import { RootState } from '../../store/store';
-import { Product, ProductItem } from 'types/global';
+import { Product } from 'types/global';
 
 interface PurchasePanelProps {
   item: Product;
@@ -28,7 +28,7 @@ export const PurchasePanel: React.FC<PurchasePanelProps> = ({
   const dispatch = useDispatch();
   const { comparedDevices } = useSelector((state: RootState) => state.compare);
   const { cart } = useSelector((state: RootState) => state.cart);
-  const isInCartState = cart.some((cartItem) => cartItem.id === item.id);
+  const isInCartState = cart.some((cartItem) => cartItem.id === item.id); // Check if item is in cart
   const [isCompareModalOpen, setCompareModalOpen] = useState(false);
 
   useEffect(() => {
@@ -49,7 +49,8 @@ export const PurchasePanel: React.FC<PurchasePanelProps> = ({
     dispatch(addDeviceToCompare({ device: item, deviceType: itemType }));
   };
 
-  const isCompareDisabled = comparedDevices.length >= 2;
+  // Disable "Compare" button if the device is in the cart
+  const isCompareDisabled = isInCartState || comparedDevices.length >= 2;
 
   return (
     <div className="flex flex-col w-[400px] space-y-4 relative">
@@ -114,7 +115,7 @@ export const PurchasePanel: React.FC<PurchasePanelProps> = ({
 
       <button
         className={`w-[150px] h-[46px] text-white transition duration-300 ${
-          isCompareDisabled ? 'bg-colorBorderGrey' : 'bg-black'
+          isCompareDisabled ? 'bg-colorLightGrey cursor-not-allowed' : 'bg-black'
         }`}
         onClick={handleCompareClick}
         disabled={isCompareDisabled}
