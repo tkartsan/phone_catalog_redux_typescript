@@ -6,7 +6,7 @@ import { addToCart, removeFromCart } from '../../store/cartSlice';
 import { addDeviceToCompare, DeviceType } from '../../store/compareSlice';
 import { CompareModal } from '../CompareModal';
 import { RootState } from '../../store/store';
-import { Product, ProductItem } from 'types/global';
+import { Product } from 'types/global';
 
 interface PurchasePanelProps {
   item: Product;
@@ -28,7 +28,7 @@ export const PurchasePanel: React.FC<PurchasePanelProps> = ({
   const dispatch = useDispatch();
   const { comparedDevices } = useSelector((state: RootState) => state.compare);
   const { cart } = useSelector((state: RootState) => state.cart);
-  const isInCartState = cart.some((cartItem) => cartItem.id === item.id);
+  const isInCartState = cart.some((cartItem) => cartItem.id === item.id); 
   const [isCompareModalOpen, setCompareModalOpen] = useState(false);
 
   useEffect(() => {
@@ -49,12 +49,11 @@ export const PurchasePanel: React.FC<PurchasePanelProps> = ({
     dispatch(addDeviceToCompare({ device: item, deviceType: itemType }));
   };
 
-  const isCompareDisabled = comparedDevices.length >= 2;
+  const isCompareDisabled = isInCartState || comparedDevices.length >= 2;
 
   return (
     <div className="flex flex-col w-[400px] space-y-4 relative">
       <p className="text-right text-sm text-gray-500">ID: {item.numericId}</p>
-
       <div className="space-y-2">
         <p className="text-lg">Available colors</p>
         <div className="flex space-x-4">
@@ -72,7 +71,6 @@ export const PurchasePanel: React.FC<PurchasePanelProps> = ({
           ))}
         </div>
       </div>
-
       <div className="space-y-2">
         <p className="text-lg">Select capacity</p>
         <div className="flex space-x-4">
@@ -91,7 +89,6 @@ export const PurchasePanel: React.FC<PurchasePanelProps> = ({
           ))}
         </div>
       </div>
-
       <div className="flex flex-col space-y-2">
         <div className="flex items-center gap-4">
           <p className="text-3xl font-bold">${item.priceDiscount}</p>
@@ -100,7 +97,6 @@ export const PurchasePanel: React.FC<PurchasePanelProps> = ({
           </p>
         </div>
       </div>
-
       <button
         className={`h-[46px] px-4 py-3 transition duration-300 ${
           isInCartState
@@ -111,21 +107,18 @@ export const PurchasePanel: React.FC<PurchasePanelProps> = ({
       >
         {isInCartState ? 'Added to cart' : 'Add to cart'}
       </button>
-
       <button
         className={`w-[150px] h-[46px] text-white transition duration-300 ${
-          isCompareDisabled ? 'bg-colorBorderGrey' : 'bg-black'
+          isCompareDisabled ? 'bg-colorLightGrey cursor-not-allowed' : 'bg-black'
         }`}
         onClick={handleCompareClick}
         disabled={isCompareDisabled}
       >
         Compare
       </button>
-
       {isCompareModalOpen && (
         <CompareModal closeModal={() => setCompareModalOpen(false)} />
       )}
-
       <div className="flex flex-col space-y-2 mt-4">
         {item.screen && (
           <div className="flex justify-between">
