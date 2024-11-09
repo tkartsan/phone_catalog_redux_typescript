@@ -1,6 +1,6 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Route, Routes } from 'react-router-dom';
 
 import { HomePage } from './components/HomePage';
 import { DeviceList } from './components/DeviceList';
@@ -13,10 +13,12 @@ import { Header } from './components/Header';
 import { ScrollToTop } from './components/ScrollToTop';
 import { useDataFetch } from './hooks/useDataFetch';
 import { getItemsWithNumericId } from './utils/getItemsWithNumericId';
-import { RootState } from './store';
+import { RootState } from './store'; 
+import { JavaScriptTasksWithTests, LearningPage } from './components/LearningPage';
+import { NotFoundPage } from './components/NotFoundPage';
 
 const App: React.FC = () => {
-  useDataFetch();
+  useDataFetch(); 
 
   const phonesData = useSelector((state: RootState) => state.itemsData.phonesData);
   const tabletsData = useSelector((state: RootState) => state.itemsData.tabletsData);
@@ -58,6 +60,9 @@ const App: React.FC = () => {
           <Route path="/favorites" element={<FavoriteDevices />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/comparison" element={<ComparisonPage />} />
+          <Route path="/learning" element={<LearningPage />} />
+          <Route path="/learning/:taskId" element={<JavaScriptTasksWithTests />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
       <Footer />

@@ -18,6 +18,7 @@ export const ComparisonPage: React.FC = () => {
     { label: 'RAM', key: 'ram' },
     { label: 'Cell', key: 'cell' },
     { label: 'Price', key: 'priceDiscount' },
+    { label: 'Capacity', key: 'capacity' },
   ] as const;
 
   const areValuesIdentical = (key: keyof Product) => {

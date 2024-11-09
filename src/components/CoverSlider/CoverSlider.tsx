@@ -40,7 +40,7 @@ export const CoverSlider: React.FC = () => {
         >
           <SwiperSlide>
             <img
-              src={'/public/img/1.png'}
+              src="/img/1.png"
               alt="Slide 1"
               className="w-[1040px] h-[400px] object-cover"
             />
@@ -62,7 +62,7 @@ export const CoverSlider: React.FC = () => {
                 </div>
               </div>
               <img
-                src={'/public/img/2-second-part.png'}
+                src="/img/2-second-part.png"
                 alt="Slide 2"
                 className="w-[500px] h-[400px] object-cover"
               />
@@ -70,7 +70,7 @@ export const CoverSlider: React.FC = () => {
           </SwiperSlide>
           <SwiperSlide>
             <img
-              src={'/public/img/3.png'}
+              src="/img/3.png"
               alt="Slide 3"
               className="w-[1040px] h-[400px] object-cover"
             />

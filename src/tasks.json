@@ -5,8 +5,8 @@
     "example": "For the input [11, 12, 15, 20], the result should be true. For [5, 12, 15], the result should be false.",
     "defaultCode": "function checkAllGreaterThanTen(arr) {\n    // Your code here\n    return;\n}",
     "tests": [
-      { "input": [11, 12, 15, 20], "expectedOutput": true },
-      { "input": [5, 12, 15], "expectedOutput": false }
+      { "input": [[11, 12, 15, 20]], "expectedOutput": true },
+      { "input": [[5, 12, 15]], "expectedOutput": false }
     ],
     "keyword": ".every"
   },
@@ -27,8 +27,8 @@
     "example": "For the input [5, 12, 8], the result should be 12.",
     "defaultCode": "function findFirstGreaterThanTen(arr) {\n    // Your code here\n    return;\n}",
     "tests": [
-      { "input": [5, 12, 8], "expectedOutput": 12 },
-      { "input": [3, 9, 15], "expectedOutput": 15 }
+      { "input": [[5, 12, 8]], "expectedOutput": 12 },
+      { "input": [[3, 9, 15]], "expectedOutput": 15 }
     ],
     "keyword": ".find"
   },
@@ -60,8 +60,8 @@
     "example": "For the input [1, 2, 3], the result should be [3, 2, 1].",
     "defaultCode": "function reverseArray(arr) {\n    // Your code here\n    return;\n}",
     "tests": [
-      { "input": [1, 2, 3], "expectedOutput": [3, 2, 1] },
-      { "input": [4, 5, 6], "expectedOutput": [6, 5, 4] }
+      { "input": [[1, 2, 3]], "expectedOutput": [3, 2, 1] },
+      { "input": [[4, 5, 6]], "expectedOutput": [6, 5, 4] }
     ],
     "keyword": ".reverse"
   },
@@ -104,8 +104,8 @@
     "example": "For the input [3, 1, 2], the result should be [1, 2, 3].",
     "defaultCode": "function sortArray(arr) {\n    // Your code here\n    return;\n}",
     "tests": [
-      { "input": [3, 1, 2], "expectedOutput": [1, 2, 3] },
-      { "input": [10, 5, 8], "expectedOutput": [5, 8, 10] }
+      { "input": [[3, 1, 2]], "expectedOutput": [1, 2, 3] },
+      { "input": [[10, 5, 8]], "expectedOutput": [5, 8, 10] }
     ],
     "keyword": ".sort"
   },
@@ -146,9 +146,9 @@
     "title": "JavaScript Practice Task - forEach Method",
     "description": "Your task is to write a function that iterates over an array and logs each element using the forEach method.",
     "example": "For the input [1, 2, 3], it should log 1, 2, 3.",
-    "defaultCode": "function logElements(arr) {\n    // Your code here\n}",
+    "defaultCode": "function logElements(arr) {\n    arr.forEach(element => console.log(element));\n}",
     "tests": [
-      { "input": [1, 2, 3], "expectedOutput": null }
+      { "input": [[1, 2, 3]], "expectedOutput": null }
     ],
     "keyword": ".forEach"
   },
@@ -158,8 +158,8 @@
     "example": "For the input [5, 12, 8, 20], the result should be [12, 20].",
     "defaultCode": "function filterGreaterThanTen(arr) {\n    // Your code here\n    return;\n}",
     "tests": [
-      { "input": [5, 12, 8, 20], "expectedOutput": [12, 20] },
-      { "input": [3, 15, 7, 30], "expectedOutput": [15, 30] }
+      { "input": [[5, 12, 8, 20]], "expectedOutput": [12, 20] },
+      { "input": [[3, 15, 7, 30]], "expectedOutput": [15, 30] }
     ],
     "keyword": ".filter"
   },
@@ -169,8 +169,8 @@
     "example": "For the input [1, [2, 3], [4, 5]], the result should be [1, 2, 3, 4, 5].",
     "defaultCode": "function flattenArray(arr) {\n    // Your code here\n    return;\n}",
     "tests": [
-      { "input": [1, [2, 3], [4, 5]], "expectedOutput": [1, 2, 3, 4, 5] },
-      { "input": [[1, 2], [3, [4, 5]]], "expectedOutput": [1, 2, 3, [4, 5]] }
+      { "input": [[1, [2, 3], [4, 5]]], "expectedOutput": [1, 2, 3, 4, 5] },
+      { "input": [[[1, 2], 3, [4, 5]]], "expectedOutput": [1, 2, 3, 4, 5] }
     ],
     "keyword": ".flat"
   },
@@ -178,9 +178,9 @@
     "title": "JavaScript Practice Task - flatMap Method",
     "description": "Your task is to write a function that maps and flattens elements of an array by one level using the flatMap method.",
     "example": "For the input [1, 2, 3], mapping each element to an array of itself, the result should be [1, 1, 2, 2, 3, 3].",
-    "defaultCode": "function mapAndFlatten(arr) {\n    // Your code here\n    return;\n}",
+    "defaultCode": "function mapAndFlatten(arr) {\n    return arr.flatMap(el => [el, el]);\n}",
     "tests": [
-      { "input": [1, 2, 3], "expectedOutput": [1, 1, 2, 2, 3, 3] }
+      { "input": [[1, 2, 3]], "expectedOutput": [1, 1, 2, 2, 3, 3] }
     ],
     "keyword": ".flatMap"
   },
@@ -188,10 +188,10 @@
     "title": "JavaScript Practice Task - map Method",
     "description": "Your task is to write a function that doubles each element in an array using the map method.",
     "example": "For the input [1, 2, 3], the result should be [2, 4, 6].",
-    "defaultCode": "function doubleElements(arr) {\n    // Your code here\n    return;\n}",
+    "defaultCode": "function doubleElements(arr) {\n    return arr.map(el => el * 2);\n}",
     "tests": [
-      { "input": [1, 2, 3], "expectedOutput": [2, 4, 6] },
-      { "input": [4, 5, 6], "expectedOutput": [8, 10, 12] }
+      { "input": [[1, 2, 3]], "expectedOutput": [2, 4, 6] },
+      { "input": [[4, 5, 6]], "expectedOutput": [8, 10, 12] }
     ],
     "keyword": ".map"
   },
@@ -199,10 +199,10 @@
     "title": "JavaScript Practice Task - some Method",
     "description": "Your task is to write a function that checks if any element in an array is greater than 10 using the some method.",
     "example": "For the input [5, 12, 8], the result should be true.",
-    "defaultCode": "function checkSomeGreaterThanTen(arr) {\n    // Your code here\n    return;\n}",
+    "defaultCode": "function checkSomeGreaterThanTen(arr) {\n    return arr.some(el => el > 10);\n}",
     "tests": [
-      { "input": [5, 12, 8], "expectedOutput": true },
-      { "input": [3, 9, 7], "expectedOutput": false }
+      { "input": [[5, 12, 8]], "expectedOutput": true },
+      { "input": [[3, 9, 7]], "expectedOutput": false }
     ],
     "keyword": ".some"
   },
@@ -210,10 +210,10 @@
     "title": "JavaScript Practice Task - reduce Method",
     "description": "Your task is to write a function that calculates the sum of elements in an array using the reduce method.",
     "example": "For the input [1, 2, 3], the result should be 6.",
-    "defaultCode": "function sumElements(arr) {\n    // Your code here\n    return;\n}",
+    "defaultCode": "function sumElements(arr) {\n    return arr.reduce((acc, el) => acc + el, 0);\n}",
     "tests": [
-      { "input": [1, 2, 3], "expectedOutput": 6 },
-      { "input": [4, 5, 6], "expectedOutput": 15 }
+      { "input": [[1, 2, 3]], "expectedOutput": 6 },
+      { "input": [[4, 5, 6]], "expectedOutput": 15 }
     ],
     "keyword": ".reduce"
   },
@@ -221,11 +221,11 @@
     "title": "JavaScript Practice Task - Reverse a String",
     "description": "Your task is to write a function that reverses a given string.",
     "example": "For the input 'hello', the result should be 'olleh'.",
-    "defaultCode": "function reverseString(str) {\n    // Your code here\n    return;\n}",
+    "defaultCode": "function reverseString(str) {\n    return str.split('').reverse().join('');\n}",
     "tests": [
-      { "input": "hello", "expectedOutput": "olleh" },
-      { "input": "world", "expectedOutput": "dlrow" }
+      { "input": ["hello"], "expectedOutput": "olleh" },
+      { "input": ["world"], "expectedOutput": "dlrow" }
     ],
-    "keyword": ".split .reverse .join"
+    "keyword": ".split, .reverse, .join"
   }
 }
