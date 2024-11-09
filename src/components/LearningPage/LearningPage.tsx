@@ -1,32 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import tasksData from '../../tasks.json'; // Adjust the path based on your project structure
+
+interface Task {
+    id: string;
+    label: string;
+}
 
 export const LearningPage: React.FC = () => {
     const navigate = useNavigate();
+    const [tasks, setTasks] = useState<Task[]>([]);
 
-    const tasks = [
-        { id: "every", label: ".every method" },
-        { id: "concat", label: ".concat method" },
-        { id: "find", label: ".find method" },
-        { id: "pop", label: ".pop method" },
-        { id: "push", label: ".push method" },
-        { id: "reverse", label: ".reverse method" },
-        { id: "shift", label: ".shift method" },
-        { id: "unshift", label: ".unshift method" },
-        { id: "slice", label: ".slice method" },
-        { id: "sort", label: ".sort method" },
-        { id: "splice", label: ".splice method" },
-        { id: "includes", label: ".includes method" },
-        { id: "join", label: ".join method" },
-        { id: "forEach", label: ".forEach method" },
-        { id: "filter", label: ".filter method" },
-        { id: "flat", label: ".flat method" },
-        { id: "flatMap", label: ".flatMap method" },
-        { id: "map", label: ".map method" },
-        { id: "some", label: ".some method" },
-        { id: "reduce", label: ".reduce method" },
-        { id: "reverseString", label: "Reverse String" }
-    ];
+    useEffect(() => {
+        const tasksArray: Task[] = Object.entries(tasksData).map(([id, task]) => ({
+            id,
+            label: task.keyword + " method" 
+        }));
+        setTasks(tasksArray);
+    }, []);
 
     return (
         <div className='flex flex-col items-center text-2xl font-semibold'>
