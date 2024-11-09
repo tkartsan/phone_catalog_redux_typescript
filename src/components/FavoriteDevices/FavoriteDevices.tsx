@@ -6,7 +6,7 @@ import { Breadcrumb } from '../Breadcrumb';
 import { DeviceCard } from '../Shared/DeviceCard';
 import { Product } from 'types/global';
 
-export const FavoritePhones: React.FC = () => {
+export const FavoriteDevices: React.FC = () => {
   const { favorites } = useSelector((state: RootState) => state.favorites);
 
   if (!favorites || favorites.length === 0) {

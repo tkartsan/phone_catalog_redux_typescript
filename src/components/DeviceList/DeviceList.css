@@ -1,3 +1,4 @@
+/* DeviceList.css */
 .container {
   max-width: 1136px;
   margin: 0 auto;
@@ -15,7 +16,7 @@
   text-align: left;
 }
 
-.accessory-grid {
+.device-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;

@@ -50,7 +50,6 @@ export const DeviceSlider: React.FC<DeviceSliderProps> = ({
           <SwiperSlide key={item.id}>
             <DeviceCard
               item={item}
-              itemType={itemType}
               isShowDiscount={isShowDiscount}
             />
           </SwiperSlide>

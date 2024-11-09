@@ -1,25 +1,19 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-import { Accessories } from './components/Accessories';
-import { AccessoryDetails } from './components/AccessoryDetails';
+import { HomePage } from './components/HomePage';
+import { DeviceList } from './components/DeviceList';
+import { DeviceDetails } from './components/DeviceDetails/DeviceDetails';
 import { CartPage } from './components/Cart/CartPage';
 import { ComparisonPage } from './components/ComparisonPage';
-import { FavoritePhones } from './components/FavoritePhones';
+import { FavoriteDevices } from './components/FavoriteDevices';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
-import { HomePage } from './components/HomePage';
-import { MobilePhones } from './components/MobilePhones';
-import { PhoneDetails } from './components/PhoneDetails';
 import { ScrollToTop } from './components/ScrollToTop';
-import { TabletDetails } from './components/TabletDetails';
-import { Tablets } from './components/Tablets';
 import { useDataFetch } from './hooks/useDataFetch';
 import { getItemsWithNumericId } from './utils/getItemsWithNumericId';
-import { RootState } from './store'; 
-import { ItemsDataState } from './store/itemsDataSlice';
-import { JavaScriptTasksWithTests, LearningPage } from './components/LearningPage';
+import { RootState } from './store';
 
 const App: React.FC = () => {
   useDataFetch();
@@ -36,26 +30,34 @@ const App: React.FC = () => {
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/phones" element={<MobilePhones phones={phonesData} />} />
-          <Route path="/tablets" element={<Tablets tablets={tabletsData} />} />
-          <Route
-            path="/tablets/:id"
-            element={<TabletDetails tablets={getItemsWithNumericId(tabletsData, productsData)} />}
-          />
-          <Route path="/accessories" element={<Accessories accessories={accessoriesData} />} />
-          <Route
-            path="/accessories/:id"
-            element={<AccessoryDetails accessories={getItemsWithNumericId(accessoriesData, productsData)} />}
-          />
+
+          <Route path="/phones" element={<DeviceList devices={phonesData} itemType="phones" />} />
+          <Route path="/tablets" element={<DeviceList devices={tabletsData} itemType="tablets" />} />
+          <Route path="/accessories" element={<DeviceList devices={accessoriesData} itemType="accessories" />} />
+
           <Route
             path="/phones/:id"
-            element={<PhoneDetails phones={getItemsWithNumericId(phonesData, productsData)} />}
+            element={
+              <DeviceDetails items={getItemsWithNumericId(phonesData, productsData)} itemType="phones" />
+            }
           />
-          <Route path="/favorites" element={<FavoritePhones />} />
+          <Route
+            path="/tablets/:id"
+            element={
+              <DeviceDetails items={getItemsWithNumericId(tabletsData, productsData)} itemType="tablets" />
+            }
+          />
+          <Route
+            path="/accessories/:id"
+            element={
+              <DeviceDetails items={getItemsWithNumericId(accessoriesData, productsData)} itemType="accessories" />
+            }
+          />
+
+          {/* Other routes */}
+          <Route path="/favorites" element={<FavoriteDevices />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/comparison" element={<ComparisonPage />} />
-          <Route path="/learning" element={<LearningPage />} />
-          <Route path="/learning/:taskId" element={<JavaScriptTasksWithTests />} /> 
         </Routes>
       </main>
       <Footer />

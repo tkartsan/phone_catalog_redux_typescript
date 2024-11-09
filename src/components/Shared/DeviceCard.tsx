@@ -9,14 +9,14 @@ import { Product } from 'types/global';
 
 interface DeviceCardProps {
   item: Product;
-  itemType: string;
   isShowDiscount?: boolean;
+  linkUrl?: string;
 }
 
 export const DeviceCard: React.FC<DeviceCardProps> = ({
   item,
-  itemType,
   isShowDiscount = false,
+  linkUrl,
 }) => {
   const dispatch = useDispatch();
   const { cart } = useSelector((state: RootState) => state.cart);
@@ -41,14 +41,11 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
     }
   };
 
-  const priceToShow = isShowDiscount
-    ? item.priceDiscount 
-    : item.priceRegular;
-
+  const priceToShow = isShowDiscount ? item.priceDiscount : item.priceRegular;
   const imageToShow = item.images ? item.images[0] : null;
 
   return (
-    <Link to={`/${itemType}/${item.id}`} className="no-underline">
+    linkUrl && <Link to={linkUrl} className="no-underline">
       <div className="bg-white border-solid border-colorLightGrey p-4 flex flex-col max-w-[272px] hover:shadow-lg transition-shadow duration-200">
         <div>
           <div className="flex justify-center mb-4">
@@ -62,9 +59,7 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
             {item.name}
           </h3>
           <div className="mt-2 flex items-center gap-2">
-            <p className="font-bold text-xl text-black">
-              ${priceToShow}
-            </p>
+            <p className="font-bold text-xl text-black">${priceToShow}</p>
             {isShowDiscount && item.priceDiscount && (
               <p className="text-gray-500 line-through">${item.priceRegular}</p>
             )}

@@ -3,8 +3,13 @@ import './Pagination.css';
 import React from 'react';
 import ReactPaginate from 'react-paginate';
 
+interface Device {
+  id: number;
+  name: string;
+}
+
 interface PaginationProps {
-  devices: unknown[]; 
+  devices: Device[]; 
   devicesPerPage: number;
   totalPages: number;
   handlePageChange: (selectedItem: { selected: number }) => void;

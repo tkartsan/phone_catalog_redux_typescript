@@ -1,19 +1,19 @@
-import './Accessories.css';
-
 import React, { useState } from 'react';
 import { Breadcrumb } from '../Breadcrumb';
 import { CustomDropdown } from '../CustomDropdown';
 import { Pagination } from '../Pagination';
 import { DeviceCard } from '../Shared/DeviceCard';
 import { Product } from 'types/global';
+import './DeviceList.css';
 
-interface AccessoriesProps {
-  accessories: Product[] | null;
+interface DeviceListProps {
+  devices: Product[] | null;
+  itemType: string;
 }
 
-export const Accessories: React.FC<AccessoriesProps> = ({ accessories }) => {
+export const DeviceList: React.FC<DeviceListProps> = ({ devices, itemType }) => {
   const [currentPage, setCurrentPage] = useState<number>(0);
-  const [accessoriesPerPage, setAccessoriesPerPage] = useState<number>(16);
+  const [itemsPerPage, setItemsPerPage] = useState<number>(16);
   const [sortOption, setSortOption] = useState<string>('');
 
   const sortOptions = [
@@ -31,7 +31,7 @@ export const Accessories: React.FC<AccessoriesProps> = ({ accessories }) => {
     { value: 'ALL', label: 'ALL' },
   ];
 
-  if (!accessories) {
+  if (!devices) {
     return null;
   }
 
@@ -39,7 +39,7 @@ export const Accessories: React.FC<AccessoriesProps> = ({ accessories }) => {
     setCurrentPage(data.selected);
   };
 
-  const sortedAccessories = [...accessories].sort((a, b) => {
+  const sortedDevices = [...devices].sort((a, b) => {
     switch (sortOption) {
       case 'lowestPrice':
         return a.priceRegular - b.priceRegular;
@@ -55,24 +55,19 @@ export const Accessories: React.FC<AccessoriesProps> = ({ accessories }) => {
     }
   });
 
-  const accessoryCount = sortedAccessories.length;
-  const totalPages =
-    accessoriesPerPage === accessories.length
-      ? 1
-      : Math.ceil(accessoryCount / accessoriesPerPage);
+  const deviceCount = sortedDevices.length;
+  const totalPages = itemsPerPage === devices.length ? 1 : Math.ceil(deviceCount / itemsPerPage);
 
-  const indexOfLastAccessory = (currentPage + 1) * accessoriesPerPage;
-  const indexOfFirstAccessory = indexOfLastAccessory - accessoriesPerPage;
-  const currentAccessories = sortedAccessories.slice(
-    indexOfFirstAccessory,
-    indexOfLastAccessory
-  );
+  const indexOfLastDevice = (currentPage + 1) * itemsPerPage;
+  const indexOfFirstDevice = indexOfLastDevice - itemsPerPage;
+  const currentDevices = sortedDevices.slice(indexOfFirstDevice, indexOfLastDevice);
 
   return (
     <div className="container">
       <Breadcrumb />
-      <div className="title">Accessories</div>
-      <p className="subtitle">{accessoryCount} models</p>
+      <div className="title">{itemType.charAt(0).toUpperCase() + itemType.slice(1)}</div>
+      <p className="subtitle">{deviceCount} models</p>
+
       <div className="flex gap-6 mb-8">
         <CustomDropdown
           options={sortOptions}
@@ -84,13 +79,11 @@ export const Accessories: React.FC<AccessoriesProps> = ({ accessories }) => {
         />
         <CustomDropdown
           options={itemsPerPageOptions}
-          selectedOption={itemsPerPageOptions.find(
-            (opt) => opt.value === accessoriesPerPage || opt.value === 'ALL'
-          ) || null}
+          selectedOption={
+            itemsPerPageOptions.find((opt) => opt.value === itemsPerPage || opt.value === 'ALL') || null
+          }
           setSelectedOption={(option) =>
-            setAccessoriesPerPage(
-              option.value === 'ALL' ? accessories.length : Number(option.value)
-            )
+            setItemsPerPage(option.value === 'ALL' ? devices.length : Number(option.value))
           }
           label="Items on page"
           isNarrowWidth={true}
@@ -98,20 +91,20 @@ export const Accessories: React.FC<AccessoriesProps> = ({ accessories }) => {
         />
       </div>
 
-      <div className="accessory-grid">
-        {currentAccessories.map((accessory) => (
+      <div className="device-grid">
+        {currentDevices.map((device) => (
           <DeviceCard
-            key={accessory.id}
-            item={accessory}
-            itemType="accessories"
+            key={device.id}
+            item={device}
             isShowDiscount={true}
+            linkUrl={`/${itemType}/${device.id}`}
           />
         ))}
       </div>
 
       <Pagination
-        devices={accessories}
-        devicesPerPage={accessoriesPerPage}
+        devices={devices}
+        devicesPerPage={itemsPerPage}
         totalPages={totalPages}
         handlePageChange={handlePageChange}
       />
