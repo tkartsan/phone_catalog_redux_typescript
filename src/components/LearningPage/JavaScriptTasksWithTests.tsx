@@ -1,3 +1,4 @@
+// JavaScriptTasksWithTests.tsx
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import tasksData from '../../tasks.json';
@@ -33,11 +34,13 @@ export const JavaScriptTasksWithTests: React.FC = () => {
   const runCode = () => {
     if (!task) return;
 
-    let keywordUsed = true;
+    const { keyword } = task;
+    const keywordUsed = keyword && new RegExp(`\\b${keyword}\\b`).test(userCode);
 
-    if (task.keyword) {
-      const keywords = task.keyword.split(',').map(kw => kw.trim());
-      keywordUsed = keywords.every(kw => userCode.includes(kw));
+    if (!keywordUsed) {
+      setResult(`You must use the "${keyword}" method in your solution.`);
+      setIsSuccess(false);
+      return;
     }
 
     try {
@@ -47,16 +50,10 @@ export const JavaScriptTasksWithTests: React.FC = () => {
         let output;
 
         if (Array.isArray(input)) {
-          if (input.length > 1) {
-            output = userFunction(...input);
-          } else {
-            output = userFunction(input[0]);
-          }
+          output = userFunction(...input);
         } else {
           output = userFunction(input);
         }
-
-        console.log('Output:', output);
 
         if (Array.isArray(expectedOutput) && Array.isArray(output)) {
           return areArraysEqual(output, expectedOutput);
@@ -67,12 +64,9 @@ export const JavaScriptTasksWithTests: React.FC = () => {
         }
       });
 
-      if (allTestsPassed && keywordUsed) {
+      if (allTestsPassed) {
         setResult('All tests passed! Great job!');
         setIsSuccess(true);
-      } else if (allTestsPassed && !keywordUsed) {
-        setResult(`Your solution is correct, but you must use the "${task.keyword}" method.`);
-        setIsSuccess(false);
       } else {
         setResult('Some tests failed. Please try again.');
         setIsSuccess(false);
