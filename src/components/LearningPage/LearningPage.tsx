@@ -21,7 +21,7 @@ export const LearningPage: React.FC = () => {
 
     return (
         <div className='flex flex-col items-center text-2xl font-semibold'>
-            <h1 className="text-3xl font-semibold mb-6">Practice and Learning Page</h1>
+            <h1 className="text-3xl font-semibold mb-6">Practice Array Methods</h1>
             <div className="grid grid-cols-3 gap-4 w-full max-w-lg">
                 {tasks.map((task) => (
                     <button
