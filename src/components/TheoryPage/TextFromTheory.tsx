@@ -7,11 +7,10 @@ export const TextFromTheory: React.FC = () => {
     const [content, setContent] = useState<string>('');
 
     useEffect(() => {
-        // Ensure topicId is defined before accessing textsData
         if (topicId && textsData[topicId]?.text) {
             setContent(textsData[topicId].text);
         } else {
-            setContent('<p>Content not available.</p>'); // Fallback message
+            setContent('<p>Content not available.</p>'); 
         }
     }, [topicId]);
 

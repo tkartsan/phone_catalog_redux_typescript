@@ -10,7 +10,7 @@ import { Product } from 'types/global';
 interface DeviceCardProps {
   item: Product;
   isShowDiscount?: boolean;
-  linkUrl: string; // Make linkUrl required
+  linkUrl: string;
 }
 
 export const DeviceCard: React.FC<DeviceCardProps> = ({
@@ -34,7 +34,7 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
   };
 
   const handleCartClick = (e: React.MouseEvent) => {
-    e.preventDefault(); // Prevent link navigation on button click
+    e.preventDefault(); 
     if (isInCart) {
       dispatch(removeFromCart(item.id));
     } else {
@@ -96,7 +96,7 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
           <button
             className="w-10 h-10 flex justify-center items-center border-solid border-colorLightGrey"
             onClick={(e) => {
-              e.preventDefault(); // Prevent navigation when toggling favorites
+              e.preventDefault(); 
               handleToggleFavorite();
             }}
           >
