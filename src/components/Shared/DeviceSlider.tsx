@@ -45,8 +45,8 @@ export const DeviceSlider: React.FC<DeviceSliderProps> = ({
           nextEl: `.${nextButtonClass}`,
           prevEl: `.${prevButtonClass}`,
         }}
-        preventClicks={false} // Allow child elements to handle clicks
-        preventClicksPropagation={false} // Prevent Swiper from blocking clicks
+        preventClicks={false} 
+        preventClicksPropagation={false} 
       >
         {items.map((item) => (
           <SwiperSlide key={item.id} style={{ pointerEvents: 'none' }}>
@@ -54,7 +54,7 @@ export const DeviceSlider: React.FC<DeviceSliderProps> = ({
               <DeviceCard
                 item={item}
                 isShowDiscount={isShowDiscount}
-                linkUrl={`/phones/${item.id}`} // Pass navigation URL
+                linkUrl={`/${itemType}/${item.id}`} 
               />
             </div>
           </SwiperSlide>
