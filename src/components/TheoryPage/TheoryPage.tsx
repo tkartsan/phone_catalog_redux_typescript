@@ -22,7 +22,7 @@ export const TheoryPage: React.FC = () => {
     return (
         <div className='flex flex-col items-center text-2xl font-semibold'>
             <h1 className="text-3xl font-semibold mb-6">Practice Theory</h1>
-            <div className="grid grid-cols-3 gap-4 w-full max-w-lg">
+            <div className="grid grid-cols-3 gap-4 w-full max-w-[1136px]">
                 {contents.map((content) => (
                     <button
                         key={content.id}

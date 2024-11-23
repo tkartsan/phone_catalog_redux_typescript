@@ -19,7 +19,7 @@ export const TextFromTheory: React.FC = () => {
             <h1 className="text-3xl font-semibold mb-6">
                 {topicId && textsData[topicId]?.title || "Practice Theory"}
             </h1>
-            <div className="w-full max-w-2xl">
+            <div className="w-full max-w-[1136px]">
                 <div dangerouslySetInnerHTML={{ __html: content }} />
             </div>
         </div>
