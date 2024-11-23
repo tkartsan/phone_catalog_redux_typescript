@@ -49,7 +49,11 @@ export const PurchasePanel: React.FC<PurchasePanelProps> = ({
     dispatch(addDeviceToCompare({ device: item, deviceType: itemType }));
   };
 
-  const isCompareDisabled = isInCartState || comparedDevices.length >= 2;
+  const isCompareDisabled =
+  isInCartState ||
+  comparedDevices.length >= 2 ||
+  comparedDevices.some((comparedDevice) => comparedDevice.id === item.id);
+
 
   return (
     <div className="flex flex-col w-[400px] space-y-4 relative">

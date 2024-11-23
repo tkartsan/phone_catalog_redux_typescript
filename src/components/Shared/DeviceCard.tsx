@@ -1,6 +1,6 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { HeartIcon, RedHeartIcon } from '../../assets';
 import { addToCart, removeFromCart } from '../../store/cartSlice';
 import { addFavorite, removeFavorite } from '../../store/favoritesSlice';
@@ -10,7 +10,7 @@ import { Product } from 'types/global';
 interface DeviceCardProps {
   item: Product;
   isShowDiscount?: boolean;
-  linkUrl?: string;
+  linkUrl: string;
 }
 
 export const DeviceCard: React.FC<DeviceCardProps> = ({
@@ -33,7 +33,8 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
     }
   };
 
-  const handleCartClick = () => {
+  const handleCartClick = (e: React.MouseEvent) => {
+    e.preventDefault(); 
     if (isInCart) {
       dispatch(removeFromCart(item.id));
     } else {
@@ -45,7 +46,7 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
   const imageToShow = item.images ? item.images[0] : null;
 
   return (
-    linkUrl && <Link to={linkUrl} className="no-underline">
+    <Link to={linkUrl} className="device-card-link no-underline">
       <div className="bg-white border-solid border-colorLightGrey p-4 flex flex-col max-w-[272px] hover:shadow-lg transition-shadow duration-200">
         <div>
           <div className="flex justify-center mb-4">
@@ -88,17 +89,14 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({
                 ? 'bg-white text-green-500 border-colorLightGrey border-solid'
                 : 'bg-black text-white'
             }`}
-            onClick={(e) => {
-              e.preventDefault();
-              handleCartClick();
-            }}
+            onClick={handleCartClick}
           >
             {isInCart ? 'Added to cart' : 'Add to cart'}
           </button>
           <button
             className="w-10 h-10 flex justify-center items-center border-solid border-colorLightGrey"
             onClick={(e) => {
-              e.preventDefault();
+              e.preventDefault(); 
               handleToggleFavorite();
             }}
           >

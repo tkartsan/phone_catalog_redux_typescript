@@ -16,6 +16,8 @@ import { getItemsWithNumericId } from './utils/getItemsWithNumericId';
 import { RootState } from './store'; 
 import { JavaScriptTasksWithTests, LearningPage } from './components/LearningPage';
 import { NotFoundPage } from './components/NotFoundPage';
+import { TheoryPage } from './components/TheoryPage';
+import { TextFromTheory } from './components/TheoryPage/TextFromTheory';
 
 const App: React.FC = () => {
   useDataFetch(); 
@@ -56,12 +58,13 @@ const App: React.FC = () => {
             }
           />
 
-          {/* Other routes */}
           <Route path="/favorites" element={<FavoriteDevices />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/comparison" element={<ComparisonPage />} />
           <Route path="/learning" element={<LearningPage />} />
+          <Route path="/theory" element={<TheoryPage />} />
           <Route path="/learning/:taskId" element={<JavaScriptTasksWithTests />} />
+          <Route path="/theory/:topicId" element={<TextFromTheory />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
